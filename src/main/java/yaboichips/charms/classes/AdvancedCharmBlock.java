@@ -45,6 +45,8 @@ public class AdvancedCharmBlock extends Block {
     }
 
 
+
+
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
@@ -52,6 +54,7 @@ public class AdvancedCharmBlock extends Block {
             if (te instanceof AdvancedCharmTE) {
                 InventoryHelper.dropItems(worldIn, pos, ((AdvancedCharmTE) te).getItems());
             }
+            super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
     }
 }

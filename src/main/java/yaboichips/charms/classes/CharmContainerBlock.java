@@ -32,8 +32,7 @@ public class CharmContainerBlock extends Block {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-                                             Hand handIn, BlockRayTraceResult result) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult result) {
         if (!worldIn.isRemote) {
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof CharmContainerTE) {
@@ -51,6 +50,7 @@ public class CharmContainerBlock extends Block {
             if (te instanceof CharmContainerTE) {
                 InventoryHelper.dropItems(worldIn, pos, ((CharmContainerTE) te).getItems());
             }
+            super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
     }
 }

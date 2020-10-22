@@ -52,6 +52,7 @@ public class UltimateCharmBlock extends Block {
             if (te instanceof UltimateCharmTE) {
                 InventoryHelper.dropItems(worldIn, pos, ((UltimateCharmTE) te).getItems());
             }
+            super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
     }
 }
