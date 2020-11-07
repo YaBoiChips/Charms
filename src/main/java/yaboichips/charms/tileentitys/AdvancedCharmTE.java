@@ -28,8 +28,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import yaboichips.charms.classes.ModTileEntityTypes;
 import yaboichips.charms.classes.AdvancedCharmBlock;
+import yaboichips.charms.classes.ModTileEntityTypes;
 import yaboichips.charms.container.AdvancedCharmContainer;
 import yaboichips.charms.lists.ItemList;
 
@@ -40,7 +40,7 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
 
     private NonNullList<ItemStack> chestContents = NonNullList.withSize(9, ItemStack.EMPTY);
     protected int numPlayersUsing;
-    private IItemHandlerModifiable items = createHandler();
+    private final IItemHandlerModifiable items = createHandler();
     private LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
 
     public AdvancedCharmTE(TileEntityType<?> typeIn) {
@@ -101,7 +101,7 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
         double dx = (double) this.pos.getX() + 0.5D;
         double dy = (double) this.pos.getY() + 0.5D;
         double dz = (double) this.pos.getZ() + 0.5D;
-        this.world.playSound((PlayerEntity) null, dx, dy, dz, sound, SoundCategory.BLOCKS, 0.5f,
+        this.world.playSound(null, dx, dy, dz, sound, SoundCategory.BLOCKS, 0.5f,
                 this.world.rand.nextFloat() * 0.1f + 0.9f);
     }
 
@@ -193,94 +193,69 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
         this.addEffectsToPlayers();
     }
 
-
     private void addEffectsToPlayers() {
         if (!this.world.isRemote) {
             for (int i = 0; i < this.getSizeInventory(); i++) {
-                AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.pos)).grow(30).expand(0.0D, (double) this.world.getHeight(), 0.0D);
+                AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.pos)).grow(30).expand(0.0D, this.world.getHeight(), 0.0D);
                 ItemStack itemInSlot = this.getStackInSlot(i);
                 List<PlayerEntity> list = this.world.getEntitiesWithinAABB(PlayerEntity.class, axisalignedbb);
                 for (PlayerEntity playerentity : list) {
                     if (itemInSlot.getItem() == ItemList.haste_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.HASTE, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.speed_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.speed_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.SPEED, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.speed_2_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.speed_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.SPEED, 10, 1, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.haste_2_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.haste_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.HASTE, 10, 1, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.saturation_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.saturation_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.SATURATION, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.healing_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.healing_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.REGENERATION, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.strength_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.strength_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.strength_2_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.strength_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.jump_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.jump_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.jump_2_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.jump_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10, 1, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.nausea_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.nausea_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.slowness_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.slowness_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.mining_fatigue_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.mining_fatigue_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.blindness_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.blindness_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.levitation_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.levitation_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.LEVITATION, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.resistance_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.resistance_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.resistance_2_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.resistance_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 10, 1, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.night_vision_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.night_vision_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.invisibility_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.invisibility_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.water_breathing_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.water_breathing_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.dolphin_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.dolphin_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.DOLPHINS_GRACE, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.glowing_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.glowing_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.GLOWING, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.luck_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.luck_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.LUCK, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.slow_falling_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.slow_falling_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.absorption_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.absorption_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 10, 0, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.absorption_2_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.absorption_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 10, 1, false, false));
-                    }
-                    if (itemInSlot.getItem() == ItemList.fire_resistance_charm) {
+                    } else if (itemInSlot.getItem() == ItemList.fire_resistance_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 10, 0, false, false));
+                    } else {
+                        this.removeStackFromSlot(i);
                     }
                 }
             }
