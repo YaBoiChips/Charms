@@ -32,9 +32,6 @@ public class Charms {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         ModContainerTypes.CONTAINER_TYPES.register(modEventBus);
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
-
-
-
     }
 
     public static void register() {
