@@ -146,7 +146,6 @@ public class CharmProperties {
             player.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10, 1));
         } else if (CuriosUtil.findItem(ItemList.jump_2_charm, player) != ItemStack.EMPTY){
             player.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10, 1));
-
         }
     }
 
