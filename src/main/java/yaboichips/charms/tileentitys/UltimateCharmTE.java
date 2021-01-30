@@ -245,8 +245,6 @@ public class UltimateCharmTE extends LockableLootTileEntity implements ITickable
                         playerentity.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.fire_resistance_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 10, 0, false, false));
-                    } else {
-                        this.removeStackFromSlot(i);
                     }
                 }
             }

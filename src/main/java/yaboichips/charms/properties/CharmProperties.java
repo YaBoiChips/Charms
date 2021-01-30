@@ -97,6 +97,11 @@ public class CharmProperties {
         }else if (CuriosUtil.findItem(ItemList.strength_charm, player) != ItemStack.EMPTY)
             player.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10));
 
+        if (player.getHeldItemOffhand().getItem() == ItemList.water_breathing_charm) {
+            player.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 10));
+        }else if (CuriosUtil.findItem(ItemList.water_breathing_charm, player) != ItemStack.EMPTY)
+            player.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 10));
+
         if (player.getHeldItemOffhand().getItem() == ItemList.strength_2_charm) {
             player.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 1));
         }else if (CuriosUtil.findItem(ItemList.strength_2_charm, player) != ItemStack.EMPTY)

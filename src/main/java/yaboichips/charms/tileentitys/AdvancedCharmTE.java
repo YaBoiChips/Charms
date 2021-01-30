@@ -30,10 +30,12 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import yaboichips.charms.classes.blocks.AdvancedCharmBlock;
 import yaboichips.charms.classes.ModTileEntityTypes;
+import yaboichips.charms.classes.items.CharmItem;
 import yaboichips.charms.container.AdvancedCharmContainer;
 import yaboichips.charms.lists.ItemList;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class AdvancedCharmTE extends LockableLootTileEntity implements ITickableTileEntity {
@@ -178,6 +180,7 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
         }
     }
 
+
     @Override
     public void tick() {
         this.addEffectsToPlayers();
@@ -244,8 +247,6 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
                         playerentity.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.fire_resistance_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 10, 0, false, false));
-                    } else {
-                        this.removeStackFromSlot(i);
                     }
                 }
             }
