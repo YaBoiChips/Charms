@@ -87,6 +87,11 @@ public class CharmProperties {
         }else if (CuriosUtil.findItem(ItemList.invisibility_charm, player) != ItemStack.EMPTY)
             player.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, 10));
 
+        if (player.getHeldItemOffhand().getItem() == ItemList.night_vision_charm) {
+            player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 20));
+        }else if (CuriosUtil.findItem(ItemList.night_vision_charm, player) != ItemStack.EMPTY)
+            player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 20));
+
         if (player.getHeldItemOffhand().getItem() == ItemList.mining_fatigue_charm) {
             player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 10));
         }else if (CuriosUtil.findItem(ItemList.mining_fatigue_charm, player) != ItemStack.EMPTY)
