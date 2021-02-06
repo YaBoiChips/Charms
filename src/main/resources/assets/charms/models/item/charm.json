@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "charms:item/charm",
+        "layer1": "charms:item/charm_overlay"
+    }
+}
