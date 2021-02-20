@@ -20,6 +20,7 @@ public class AdvancedContainerScreen extends ContainerScreen<AdvancedCharmContai
         this.guiTop = 0;
         this.xSize = 175;
         this.ySize = 183;
+        this.playerInventoryTitleY = this.ySize - 94;
     }
 
 

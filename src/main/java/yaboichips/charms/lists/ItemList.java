@@ -5,7 +5,6 @@ import net.minecraft.item.Item;
 
 public class ItemList {
 
-    public static Item healing_charm;
     public static Item saturation_charm;
     public static Item speed_charm;
     public static Item speed_2_charm;

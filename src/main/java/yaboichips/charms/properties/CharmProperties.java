@@ -22,11 +22,6 @@ public class CharmProperties {
     public static void doCharms(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
 
-        if (player.getHeldItemOffhand().getItem() == ItemList.healing_charm) {
-            player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 10));
-        }else if (CuriosUtil.findItem(ItemList.healing_charm, player) != ItemStack.EMPTY)
-            player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 10));
-
         if (player.getHeldItemOffhand().getItem() == ItemList.saturation_charm) {
             player.addPotionEffect(new EffectInstance(Effects.SATURATION, 10));
         }else if (CuriosUtil.findItem(ItemList.saturation_charm, player) != ItemStack.EMPTY)

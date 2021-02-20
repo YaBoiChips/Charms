@@ -42,7 +42,6 @@ public class ItemRegistry {
                 ItemList.resistance_2_charm = new CharmItem(new Item.Properties().group(Charms.CHARMSTAB)).setRegistryName("resistance_2_charm"),
                 ItemList.jump_charm = new CharmItem(new Item.Properties().group(Charms.CHARMSTAB)).setRegistryName("jump_charm"),
                 ItemList.jump_2_charm = new CharmItem(new Item.Properties().group(Charms.CHARMSTAB)).setRegistryName("jump_2_charm"),
-                ItemList.healing_charm = new CharmItem(new Item.Properties().group(Charms.CHARMSTAB)).setRegistryName("healing_charm"),
         ItemList.charm_container = new BlockItem(BlockList.charm_container, new Item.Properties().group(Charms.CHARMSTAB)).setRegistryName(BlockList.charm_container.getRegistryName()),
         ItemList.advanced_charm_container = new BlockItem(BlockList.advanced_charm_container, new Item.Properties().group(Charms.CHARMSTAB)).setRegistryName(BlockList.advanced_charm_container.getRegistryName()),
         ItemList.ultimate_charm_container = new BlockItem(BlockList.ultimate_charm_container, new Item.Properties().group(Charms.CHARMSTAB)).setRegistryName(BlockList.ultimate_charm_container.getRegistryName()));

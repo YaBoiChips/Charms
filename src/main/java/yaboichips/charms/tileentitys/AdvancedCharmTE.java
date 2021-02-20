@@ -203,8 +203,6 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
                         playerentity.addPotionEffect(new EffectInstance(Effects.HASTE, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.saturation_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.SATURATION, 10, 0, false, false));
-                    } else if (itemInSlot.getItem() == ItemList.healing_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.REGENERATION, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.strength_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.strength_2_charm) {

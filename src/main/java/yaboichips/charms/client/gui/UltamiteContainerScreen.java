@@ -19,6 +19,7 @@ public class UltamiteContainerScreen extends ContainerScreen<UltimateCharmContai
         this.guiTop = 0;
         this.xSize = 175;
         this.ySize = 183;
+        this.playerInventoryTitleY = this.ySize - 94;
     }
 
     @Override
