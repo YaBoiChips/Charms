@@ -1,7 +1,6 @@
 {
   "replace": "false",
   "values": [
-    "charms:healing_charm",
     "charms:saturation_charm",
     "charms:speed_charm",
     "charms:haste_charm",

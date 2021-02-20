@@ -2,7 +2,6 @@
   "replace": "false",
   "values": [
     "charms:jump_2_charm",
-    "charms:healing_charm",
     "charms:saturation_charm",
     "charms:speed_charm",
     "charms:speed_2_charm",
