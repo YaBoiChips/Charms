@@ -26,5 +26,5 @@ public class ModTileEntityTypes {
 
         public static final RegistryObject<TileEntityType<AdvancedCharmTE>> ADVANCED_CHARM_CONTAINER = TILE_ENTITY_TYPES
                 .register("advanced_charm_container", () -> TileEntityType.Builder
-                        .create(() -> new AdvancedCharmTE(), BlockList.advanced_charm_container).build(null));
+                        .create(AdvancedCharmTE::new, BlockList.advanced_charm_container).build(null));
 }

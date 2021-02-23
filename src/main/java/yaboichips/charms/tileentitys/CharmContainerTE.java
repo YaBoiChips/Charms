@@ -224,7 +224,7 @@ public class CharmContainerTE extends LockableLootTileEntity implements ITickabl
                     } else if (itemInSlot.getItem() == ItemList.resistance_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.night_vision_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 10, 0, false, false));
+                        playerentity.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 270, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.invisibility_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.water_breathing_charm) {

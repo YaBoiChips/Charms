@@ -22,4 +22,9 @@ public class CharmItem extends Item {
         }
         else return super.initCapabilities(stack, nbt);
     }
+
+    @Override
+    public int getItemStackLimit(ItemStack stack) {
+        return 1;
+    }
 }
