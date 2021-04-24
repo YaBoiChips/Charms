@@ -100,4 +100,7 @@ public class UltimateCharmContainer extends Container {
         }
         return itemstack;
     }
+    public void onContainerClosed(PlayerEntity playerIn) {
+        super.onContainerClosed(playerIn);
+    }
 }

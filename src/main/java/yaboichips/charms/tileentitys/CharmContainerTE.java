@@ -51,6 +51,7 @@ public class CharmContainerTE extends LockableLootTileEntity implements ITickabl
         this(ModTileEntityTypes.CHARM_CONTAINER.get());
     }
 
+
     @Override
     public int getSizeInventory() {
         return 1;
@@ -75,6 +76,17 @@ public class CharmContainerTE extends LockableLootTileEntity implements ITickabl
     protected Container createMenu(int id, PlayerInventory player) {
         return new CharmContainer(id, player, this);
     }
+
+    @Override
+    public void read(BlockState state, CompoundNBT nbt) {
+        super.read(state, nbt);
+        this.chestContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        if (!this.checkLootAndRead(nbt)) {
+            ItemStackHelper.loadAllItems(nbt, this.chestContents);
+        }
+
+    }
+
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
@@ -200,7 +212,7 @@ public class CharmContainerTE extends LockableLootTileEntity implements ITickabl
                     } else if (itemInSlot.getItem() == ItemList.haste_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.HASTE, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.saturation_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.SATURATION, 10, 0, false, false));
+                        playerentity.getFoodStats().setFoodSaturationLevel(2);
                     } else if (itemInSlot.getItem() == ItemList.strength_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.strength_2_charm) {

@@ -23,9 +23,9 @@ public class CharmProperties {
         PlayerEntity player = event.player;
 
         if (player.getHeldItemOffhand().getItem() == ItemList.saturation_charm) {
-            player.addPotionEffect(new EffectInstance(Effects.SATURATION, 10));
+            player.getFoodStats().setFoodSaturationLevel(2);
         }else if (CuriosUtil.findItem(ItemList.saturation_charm, player) != ItemStack.EMPTY)
-            player.addPotionEffect(new EffectInstance(Effects.SATURATION, 10));
+            player.getFoodStats().setFoodSaturationLevel(2);
 
         if (player.getHeldItemOffhand().getItem() == ItemList.speed_charm) {
             player.addPotionEffect(new EffectInstance(Effects.SPEED, 10));
