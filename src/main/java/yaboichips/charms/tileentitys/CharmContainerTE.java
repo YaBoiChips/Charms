@@ -212,7 +212,9 @@ public class CharmContainerTE extends LockableLootTileEntity implements ITickabl
                     } else if (itemInSlot.getItem() == ItemList.haste_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.HASTE, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.saturation_charm) {
-                        playerentity.getFoodStats().setFoodSaturationLevel(2);
+                        if (playerentity.world.isRemote) {
+                            playerentity.getFoodStats().setFoodSaturationLevel(2);
+                        }
                     } else if (itemInSlot.getItem() == ItemList.strength_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.strength_2_charm) {
