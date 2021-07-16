@@ -210,24 +210,26 @@ public class UltimateCharmTE extends LockableLootTileEntity implements ITickable
                         playerentity.addPotionEffect(new EffectInstance(Effects.HASTE, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.saturation_charm) {
                         if (playerentity.world.isRemote) {
-                            playerentity.getFoodStats().setFoodSaturationLevel(2);
+                            if (playerentity.getFoodStats().getSaturationLevel() <= 2){|
+                                playerentity.getFoodStats().setFoodSaturationLevel(2);
+                            }
                         }
                     } else if (itemInSlot.getItem() == ItemList.strength_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.strength_2_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 0, false, false));
+                        playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.jump_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.jump_2_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.nausea_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 10, 0, false, false));
+                        playerentity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 50, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.slowness_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10, 0, false, false));
+                        playerentity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.mining_fatigue_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 10, 0, false, false));
+                        playerentity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 50, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.blindness_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 10, 0, false, false));
+                        playerentity.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 50, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.levitation_charm) {
                         playerentity.addPotionEffect(new EffectInstance(Effects.LEVITATION, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.resistance_charm) {

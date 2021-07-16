@@ -28,7 +28,9 @@ public class CharmProperties {
             }
         }else if (CuriosUtil.findItem(ItemList.saturation_charm, player) != ItemStack.EMPTY)
                 if (player.world.isRemote) {
-                    player.getFoodStats().setFoodSaturationLevel(2);
+                    if (playerentity.getFoodStats().getSaturationLevel() <= 2){|
+                        playerentity.getFoodStats().setFoodSaturationLevel(2);
+                    }
                 }
 
         if (player.getHeldItemOffhand().getItem() == ItemList.speed_charm) {
@@ -57,19 +59,19 @@ public class CharmProperties {
             player.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10));
 
         if (player.getHeldItemOffhand().getItem() == ItemList.nausea_charm) {
-            player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 30, 1));
+            player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 50, 1));
         }else if (CuriosUtil.findItem(ItemList.nausea_charm, player) != ItemStack.EMPTY)
-            player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 30, 1));
+            player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 50, 1));
 
         if (player.getHeldItemOffhand().getItem() == ItemList.slowness_charm) {
-            player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10));
+            player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50));
         }else if (CuriosUtil.findItem(ItemList.slowness_charm, player) != ItemStack.EMPTY)
-            player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10));
+            player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50));
 
         if (player.getHeldItemOffhand().getItem() == ItemList.blindness_charm) {
-            player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 10));
+            player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 50));
         }else if (CuriosUtil.findItem(ItemList.blindness_charm, player) != ItemStack.EMPTY)
-            player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 10));
+            player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 50));
 
         if (player.getHeldItemOffhand().getItem() == ItemList.levitation_charm) {
             player.addPotionEffect(new EffectInstance(Effects.LEVITATION, 10));
@@ -92,9 +94,9 @@ public class CharmProperties {
             player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 270));
 
         if (player.getHeldItemOffhand().getItem() == ItemList.mining_fatigue_charm) {
-            player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 10));
+            player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 50));
         }else if (CuriosUtil.findItem(ItemList.mining_fatigue_charm, player) != ItemStack.EMPTY)
-            player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 10));
+            player.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 50));
 
         if (player.getHeldItemOffhand().getItem() == ItemList.strength_charm) {
             player.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10));
@@ -109,7 +111,7 @@ public class CharmProperties {
         if (player.getHeldItemOffhand().getItem() == ItemList.strength_2_charm) {
             player.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 1));
         }else if (CuriosUtil.findItem(ItemList.strength_2_charm, player) != ItemStack.EMPTY)
-            player.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10,1));
+            player.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 1));
 
         if (player.getHeldItemOffhand().getItem() == ItemList.resistance_charm) {
             player.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 10));
