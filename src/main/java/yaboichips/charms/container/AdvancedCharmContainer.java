@@ -1,13 +1,13 @@
 package yaboichips.charms.container;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraftforge.fml.common.Mod;
 import yaboichips.charms.Charms;
 import yaboichips.charms.classes.ModContainerTypes;
@@ -18,16 +18,16 @@ import java.util.Objects;
 
 
 @Mod.EventBusSubscriber(modid = Charms.CHARMS, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class AdvancedCharmContainer extends Container {
+public class AdvancedCharmContainer extends AbstractContainerMenu {
 
     public final AdvancedCharmTE tileEntity;
-    private final IWorldPosCallable canInteractWithCallable;
+    private final ContainerLevelAccess canInteractWithCallable;
 
-    public AdvancedCharmContainer(final int windowId, final PlayerInventory playerInventory,
+    public AdvancedCharmContainer(final int windowId, final Inventory playerInventory,
                                   final AdvancedCharmTE tileEntity) {
         super(ModContainerTypes.ADVANCED_CHARM_CONTAINER.get(), windowId);
         this.tileEntity = tileEntity;
-        this.canInteractWithCallable = IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos());
+        this.canInteractWithCallable = ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos());
 
         // Main Inventory
         int startX = 8;
@@ -56,51 +56,51 @@ public class AdvancedCharmContainer extends Container {
         }
     }
 
-    private static AdvancedCharmTE getTileEntity(final PlayerInventory playerInventory,
-                                                 final PacketBuffer data) {
+    private static AdvancedCharmTE getTileEntity(final Inventory playerInventory,
+                                                 final FriendlyByteBuf data) {
         Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
-        final TileEntity tileAtPos = playerInventory.player.world.getTileEntity(data.readBlockPos());
+        final BlockEntity tileAtPos = playerInventory.player.level.getBlockEntity(data.readBlockPos());
         if (tileAtPos instanceof AdvancedCharmTE) {
             return (AdvancedCharmTE) tileAtPos;
         }
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
     }
 
-    public AdvancedCharmContainer(final int windowId, final PlayerInventory playerInventory, PacketBuffer data) {
+    public AdvancedCharmContainer(final int windowId, final Inventory playerInventory, FriendlyByteBuf data) {
         this(windowId, playerInventory, getTileEntity(playerInventory, data));
     }
 
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(canInteractWithCallable, playerIn, BlockList.advanced_charm_container);
+    public boolean stillValid(Player playerIn) {
+        return stillValid(canInteractWithCallable, playerIn, BlockList.ADVANCED_CHARM_CONTAINER);
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             if (index < 10) {
-                if (!this.mergeItemStack(itemstack1, 10, this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, 10, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 0, 10, false)) {
+            } else if (!this.moveItemStackTo(itemstack1, 0, 10, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
         return itemstack;
     }
-    public void onContainerClosed(PlayerEntity playerIn) {
-        super.onContainerClosed(playerIn);
+    public void removed(Player playerIn) {
+        super.removed(playerIn);
     }
 }

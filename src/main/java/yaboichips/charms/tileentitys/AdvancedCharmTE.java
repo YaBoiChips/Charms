@@ -1,28 +1,32 @@
 package yaboichips.charms.tileentitys;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.TickingBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -37,25 +41,28 @@ import yaboichips.charms.lists.ItemList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Set;
 
-public class AdvancedCharmTE extends LockableLootTileEntity implements ITickableTileEntity {
+public class AdvancedCharmTE extends RandomizableContainerBlockEntity{
 
     private NonNullList<ItemStack> chestContents = NonNullList.withSize(9, ItemStack.EMPTY);
     protected int numPlayersUsing;
     private final IItemHandlerModifiable items = createHandler();
     private LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
 
-    public AdvancedCharmTE(TileEntityType<?> typeIn) {
-        super(typeIn);
+    public AdvancedCharmTE(BlockPos pos, BlockState state) {
+        super(ModTileEntityTypes.ADVANCED_CHARM_CONTAINER.get(), pos, state);
     }
 
-    public AdvancedCharmTE() {
-        this(ModTileEntityTypes.ADVANCED_CHARM_CONTAINER.get());
+
+    @Override
+    public int getContainerSize() {
+        return 9;
     }
 
     @Override
-    public int getSizeInventory() {
-        return 9;
+    public int getMaxStackSize() {
+        return 64;
     }
 
     @Override
@@ -69,29 +76,21 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
     }
 
     @Override
-    protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent("container.advanced_charm_container");
+    protected Component getDefaultName() {
+        return new TranslatableComponent("container.advanced_charm_container");
     }
 
     @Override
-    protected Container createMenu(int id, PlayerInventory player) {
+    protected AbstractContainerMenu createMenu(int id, Inventory player) {
         return new AdvancedCharmContainer(id, player, this);
     }
-    @Override
-    public void read(BlockState state, CompoundNBT nbt) {
-        super.read(state, nbt);
-        this.chestContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-        if (!this.checkLootAndRead(nbt)) {
-            ItemStackHelper.loadAllItems(nbt, this.chestContents);
-        }
 
-    }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        super.write(compound);
-        if (!this.checkLootAndWrite(compound)) {
-            ItemStackHelper.saveAllItems(compound, this.chestContents);
+    public CompoundTag save(CompoundTag compound) {
+        super.save(compound);
+        if (!this.trySaveLootTable(compound)) {
+            ContainerHelper.saveAllItems(compound, this.chestContents);
         }
         return compound;
     }
@@ -99,25 +98,25 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
 
 
     private void playSound(SoundEvent sound) {
-        double dx = (double) this.pos.getX() + 0.5D;
-        double dy = (double) this.pos.getY() + 0.5D;
-        double dz = (double) this.pos.getZ() + 0.5D;
-        this.world.playSound(null, dx, dy, dz, sound, SoundCategory.BLOCKS, 0.5f,
-                this.world.rand.nextFloat() * 0.1f + 0.9f);
+        double dx = (double) this.worldPosition.getX() + 0.5D;
+        double dy = (double) this.worldPosition.getY() + 0.5D;
+        double dz = (double) this.worldPosition.getZ() + 0.5D;
+        this.level.playSound(null, dx, dy, dz, sound, SoundSource.BLOCKS, 0.5f,
+                this.level.random.nextFloat() * 0.1f + 0.9f);
     }
 
     @Override
-    public boolean receiveClientEvent(int id, int type) {
+    public boolean triggerEvent(int id, int type) {
         if (id == 1) {
             this.numPlayersUsing = type;
             return true;
         } else {
-            return super.receiveClientEvent(id, type);
+            return super.triggerEvent(id, type);
         }
     }
 
     @Override
-    public void openInventory(PlayerEntity player) {
+    public void startOpen(Player player) {
         if (!player.isSpectator()) {
             if (this.numPlayersUsing < 0) {
                 this.numPlayersUsing = 0;
@@ -128,46 +127,37 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
     }
 
     @Override
-    public void closeInventory(PlayerEntity player) {
+    public void stopOpen(Player player) {
         if (!player.isSpectator()) {
             --this.numPlayersUsing;
             this.onOpenOrClose();
         }
     }
 
-    protected void onOpenOrClose() {
-        Block block = this.getBlockState().getBlock();
-        if (block instanceof AdvancedCharmBlock) {
-            this.world.addBlockEvent(this.pos, block, 1, this.numPlayersUsing);
-            this.world.notifyNeighborsOfStateChange(this.pos, block);
-        }
-    }
-
-    public static int getPlayersUsing(IBlockReader reader, BlockPos pos) {
-        BlockState blockstate = reader.getBlockState(pos);
-        if (blockstate.hasTileEntity()) {
-            TileEntity tileentity = reader.getTileEntity(pos);
-            if (tileentity instanceof AdvancedCharmTE) {
-                return ((AdvancedCharmTE) tileentity).numPlayersUsing;
-            }
-        }
-        return 0;
-    }
-
-    public static void swapContents(AdvancedCharmTE te, AdvancedCharmTE otherTe) {
-        NonNullList<ItemStack> list = te.getItems();
-        te.setItems(otherTe.getItems());
-        otherTe.setItems(list);
+    @Override
+    public boolean canPlaceItem(int p_18952_, ItemStack p_18953_) {
+        return super.canPlaceItem(p_18952_, p_18953_);
     }
 
     @Override
-    public void updateContainingBlockInfo() {
-        super.updateContainingBlockInfo();
-        if (this.itemHandler != null) {
-            this.itemHandler.invalidate();
-            this.itemHandler = null;
+    public int countItem(Item p_18948_) {
+        return super.countItem(p_18948_);
+    }
+
+    @Override
+    public boolean hasAnyOf(Set<Item> p_18950_) {
+        return super.hasAnyOf(p_18950_);
+    }
+
+    protected void onOpenOrClose() {
+        Block block = this.getBlockState().getBlock();
+        if (block instanceof AdvancedCharmBlock) {
+            this.level.blockEvent(this.worldPosition, block, 1, this.numPlayersUsing);
+            this.level.updateNeighborsAt(this.worldPosition, block);
         }
     }
+
+
 
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nonnull Direction side) {
@@ -177,90 +167,93 @@ public class AdvancedCharmTE extends LockableLootTileEntity implements ITickable
         return super.getCapability(cap, side);
     }
 
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        return super.getCapability(cap);
+    }
+
     private IItemHandlerModifiable createHandler() {
         return new InvWrapper(this);
     }
 
     @Override
-    public void remove() {
-        super.remove();
+    public void setRemoved() {
+        super.setRemoved();
         if (itemHandler != null) {
             itemHandler.invalidate();
         }
     }
 
 
-    @Override
-    public void tick() {
-        this.addEffectsToPlayers();
-    }
-
-    private void addEffectsToPlayers() {
-        if (!this.world.isRemote) {
-            for (int i = 0; i < this.getSizeInventory(); i++) {
-                AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.pos)).grow(30).expand(0.0D, this.world.getHeight(), 0.0D);
-                ItemStack itemInSlot = this.getStackInSlot(i);
-                List<PlayerEntity> list = this.world.getEntitiesWithinAABB(PlayerEntity.class, axisalignedbb);
-                for (PlayerEntity playerentity : list) {
+    public void addEffectsToPlayers() {
+        if (!this.level.isClientSide) {
+            for (int i = 0; i < this.getContainerSize(); i++) {
+                AABB axisalignedbb = (new AABB(this.worldPosition)).inflate(30).expandTowards(0.0D, this.level.getMaxBuildHeight(), 0.0D);
+                ItemStack itemInSlot = this.getItem(i);
+                List<Player> list = this.level.getEntitiesOfClass(Player.class, axisalignedbb);
+                for (Player playerentity : list) {
                     if (itemInSlot.getItem() == ItemList.haste_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.HASTE, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.speed_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.SPEED, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.speed_2_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.SPEED, 10, 1, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.haste_2_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.HASTE, 10, 1, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.saturation_charm) {
-                        if (playerentity.world.isRemote) {
-                            if (playerentity.getFoodStats().getSaturationLevel() <= 2){|
-                            playerentity.getFoodStats().setFoodSaturationLevel(2);
-                                }
+                        if (playerentity.level.isClientSide) {
+                            if (playerentity.getFoodData().getSaturationLevel() <= 2){
+                                playerentity.getFoodData().setSaturation(2);
+                            }
                         }
                     } else if (itemInSlot.getItem() == ItemList.strength_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.strength_2_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.STRENGTH, 10, 1, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.jump_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.JUMP, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.jump_2_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 10, 1, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.JUMP, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.nausea_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 50, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.slowness_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 50, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.mining_fatigue_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 50, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 50, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.blindness_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 50, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 50, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.levitation_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.LEVITATION, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.resistance_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.resistance_2_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 10, 1, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.night_vision_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 270, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 270, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.invisibility_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.water_breathing_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.dolphin_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.DOLPHINS_GRACE, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.glowing_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.GLOWING, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.luck_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.LUCK, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.LUCK, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.slow_falling_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.absorption_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 10, 0, false, false));
                     } else if (itemInSlot.getItem() == ItemList.absorption_2_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 10, 1, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 10, 1, false, false));
                     } else if (itemInSlot.getItem() == ItemList.fire_resistance_charm) {
-                        playerentity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 10, 0, false, false));
+                        playerentity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 10, 0, false, false));
                     }
                 }
             }
         }
     }
+
+
 }

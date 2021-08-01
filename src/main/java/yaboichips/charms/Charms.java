@@ -2,9 +2,9 @@ package yaboichips.charms;
 
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
@@ -15,14 +15,12 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import top.theillusivec4.curios.api.SlotTypeMessage;
 import yaboichips.charms.classes.ModContainerTypes;
 import yaboichips.charms.classes.ModTileEntityTypes;
 import yaboichips.charms.client.gui.AdvancedContainerScreen;
 import yaboichips.charms.client.gui.CharmContainerScreen;
 import yaboichips.charms.client.gui.UltamiteContainerScreen;
 import yaboichips.charms.lists.ItemList;
-import yaboichips.charms.util.CuriosModCheck;
 
 
 @Mod("charms")
@@ -53,9 +51,9 @@ public class Charms {
 
     private void clientSetup(FMLClientSetupEvent e) {
         LOGGER.debug("Charms: Client Setup event starting...");
-        ScreenManager.registerFactory(ModContainerTypes.CHARM_CONTAINER.get(), CharmContainerScreen::new);
-        ScreenManager.registerFactory(ModContainerTypes.ULTIMATE_CHARM_CONTAINER.get(), UltamiteContainerScreen::new);
-        ScreenManager.registerFactory(ModContainerTypes.ADVANCED_CHARM_CONTAINER.get(), AdvancedContainerScreen::new);
+        MenuScreens.register(ModContainerTypes.CHARM_CONTAINER.get(), CharmContainerScreen::new);
+        MenuScreens.register(ModContainerTypes.ULTIMATE_CHARM_CONTAINER.get(), UltamiteContainerScreen::new);
+        MenuScreens.register(ModContainerTypes.ADVANCED_CHARM_CONTAINER.get(), AdvancedContainerScreen::new);
 
     }
 
@@ -66,15 +64,15 @@ public class Charms {
                 return "Hello world";
             });
 
-            if (CuriosModCheck.CURIOS.isLoaded()) {
-                InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm").size(1).build());
-            }
+//            if (CuriosModCheck.CURIOS.isLoaded()) {
+//                InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("charm").size(1).build());
+//            }
         }
     }
 
-    public static final ItemGroup CHARMSTAB = new ItemGroup("charmsTab") {
+    public static final CreativeModeTab CHARMSTAB = new CreativeModeTab("charmsTab") {
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(ItemList.charm_base);
         }
     };

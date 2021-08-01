@@ -6,25 +6,25 @@ buildscript {
         maven {url='https://dist.creeper.host/Sponge/maven'}
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1+', changing: true
     }
 }
 plugins {
-    id "com.wynprice.cursemaven" version "2.1.0"
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 version = '1.0'
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'yaboichips.charms' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'charms'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '16' // Need this here so eclipse task generates correctly.
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'snapshot', version: '20201028-1.16.3'
+    mappings channel: 'official', version: '1.17.1'
     runs {
         client {
             workingDirectory project.file('run')
@@ -76,7 +76,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/main/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.4-35.0.18'
+    minecraft 'net.minecraftforge:forge:1.17.1-37.0.13'
 
 }
 
@@ -101,8 +101,33 @@ repositories {
 }
 
 dependencies {
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.0")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.0:api")
+
+}
+def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
+def intoTargets = ['META-INF/mods.toml', 'pack.mcmeta']
+def replaceProperties = [mod_id: 'charms', mod_name: 'Charms', mod_version: 1.2,
+                         mod_authors: 'YaBoiChips', mod_description: 'charms',
+                         minecraft_version_range: 1.17, forge_version_range: 1.17,
+                         loader_version_range: 1.17]
+processResources {
+    inputs.properties replaceProperties
+    properties.put 'project', project
+
+    filesMatching(resourceTargets) {
+        expand replaceProperties
+    }
+
+    intoTargets.each { target ->
+        if (file(target).exists()) {
+            copy {
+                from(sourceSets.main.resources) {
+                    include resourceTargets
+                    expand replaceProperties
+                }
+                into target
+            }
+        }
+    }
 }
 
 jar.finalizedBy('reobfJar')
@@ -119,7 +144,7 @@ publishing {
         }
         maven {
             // location of the maven that hosts JEI files
-            name = "Progwml6 maven"
+            name = "Progwml6maven"
             url = "https://dvs1.progwml6.com/files/maven/"
         }
         maven {

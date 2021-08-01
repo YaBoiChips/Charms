@@ -1,62 +1,72 @@
 package yaboichips.charms.classes.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import yaboichips.charms.classes.ModTileEntityTypes;
 import yaboichips.charms.tileentitys.AdvancedCharmTE;
 
-public class AdvancedCharmBlock extends Block {
+import javax.annotation.Nullable;
+import java.util.Random;
+
+
+public class AdvancedCharmBlock extends BaseEntityBlock {
 
     public AdvancedCharmBlock(Properties properties) {
         super(properties);
     }
 
-    @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
-    }
 
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return ModTileEntityTypes.ADVANCED_CHARM_CONTAINER.get().create();
-    }
-
-    @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-                                             Hand handIn, BlockRayTraceResult result) {
-        if (!worldIn.isRemote) {
-            TileEntity tile = worldIn.getTileEntity(pos);
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
+                                             InteractionHand handIn, BlockHitResult result) {
+        if (!worldIn.isClientSide) {
+            BlockEntity tile = worldIn.getBlockEntity(pos);
             if (tile instanceof AdvancedCharmTE) {
-                NetworkHooks.openGui((ServerPlayerEntity) player, (AdvancedCharmTE) tile, pos);
-                return ActionResultType.SUCCESS;
+                NetworkHooks.openGui((ServerPlayer) player, (AdvancedCharmTE) tile, pos);
+                return InteractionResult.SUCCESS;
             }
         }
-        return ActionResultType.FAIL;
+        return InteractionResult.FAIL;
     }
-
-
-
 
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void tick(BlockState state, ServerLevel p_60463_, BlockPos pos, Random p_60465_) {
+        AdvancedCharmTE tile = new AdvancedCharmTE(pos, state);
+        tile.addEffectsToPlayers();
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity te = worldIn.getTileEntity(pos);
+            BlockEntity te = worldIn.getBlockEntity(pos);
             if (te instanceof AdvancedCharmTE) {
-                InventoryHelper.dropItems(worldIn, pos, ((AdvancedCharmTE) te).getItems());
+                Containers.dropContents(worldIn, pos, ((AdvancedCharmTE) te).getItems());
             }
-            super.onReplaced(state, worldIn, pos, newState, isMoving);
+            super.onRemove(state, worldIn, pos, newState, isMoving);
         }
     }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return ModTileEntityTypes.ADVANCED_CHARM_CONTAINER.get().create(blockPos, blockState);
+    }
+
 }
 

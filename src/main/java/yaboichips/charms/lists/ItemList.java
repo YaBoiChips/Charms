@@ -1,6 +1,6 @@
 package yaboichips.charms.lists;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 
 public class ItemList {
