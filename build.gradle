@@ -93,7 +93,7 @@ jar {
     }
 }
 
-repositories {w
+repositories {
     maven {
         url = "https://maven.theillusivec4.top/"
     }
