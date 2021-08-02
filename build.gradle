@@ -34,7 +34,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                charms {
                     source sourceSets.main
                 }
             }
@@ -49,7 +49,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                charms {
                     source sourceSets.main
                 }
             }
@@ -62,10 +62,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/main/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'charms', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                charms {
                     source sourceSets.main
                 }
             }
@@ -73,7 +73,6 @@ minecraft {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/main/resources' }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.17.1-37.0.13'
@@ -83,7 +82,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "examplemod",
+            "Specification-Title": "charms",
             "Specification-Vendor": "examplemodsareus",
             "Specification-Version": "2", // We are version 1 of ourselves
             "Implementation-Title": project.name,
@@ -94,7 +93,7 @@ jar {
     }
 }
 
-repositories {
+repositories {w
     maven {
         url = "https://maven.theillusivec4.top/"
     }
@@ -103,32 +102,7 @@ repositories {
 dependencies {
 
 }
-def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
-def intoTargets = ['META-INF/mods.toml', 'pack.mcmeta']
-def replaceProperties = [mod_id: 'charms', mod_name: 'Charms', mod_version: 1.2,
-                         mod_authors: 'YaBoiChips', mod_description: 'charms',
-                         minecraft_version_range: 1.17, forge_version_range: 1.17,
-                         loader_version_range: 1.17]
-processResources {
-    inputs.properties replaceProperties
-    properties.put 'project', project
 
-    filesMatching(resourceTargets) {
-        expand replaceProperties
-    }
-
-    intoTargets.each { target ->
-        if (file(target).exists()) {
-            copy {
-                from(sourceSets.main.resources) {
-                    include resourceTargets
-                    expand replaceProperties
-                }
-                into target
-            }
-        }
-    }
-}
 
 jar.finalizedBy('reobfJar')
 
