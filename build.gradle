@@ -14,7 +14,6 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 version = '1.0'
 group = 'yaboichips.charms' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -22,7 +21,7 @@ archivesBaseName = 'charms'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '16' // Need this here so eclipse task generates correctly.
 
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+println('Java: ' + System.getProperty('java.version') + 'JVM:' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
     mappings channel: 'official', version: '1.17.1'
     runs {
@@ -127,4 +126,4 @@ publishing {
             url = "https://modmaven.k-4u.nl"
         }
     }
-    }
+}
