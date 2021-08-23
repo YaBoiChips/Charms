@@ -1,28 +1,24 @@
 package yaboichips.charms.classes.blocks;
 
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
-import yaboichips.charms.classes.ModTileEntityTypes;
+import yaboichips.charms.core.CharmTileEntityTypes;
 import yaboichips.charms.tileentitys.AdvancedCharmTE;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 
 public class AdvancedCharmBlock extends BaseEntityBlock {
@@ -46,9 +42,9 @@ public class AdvancedCharmBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel p_60463_, BlockPos pos, Random p_60465_) {
-        AdvancedCharmTE tile = new AdvancedCharmTE(pos, state);
-        tile.addEffectsToPlayers();
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152160_, BlockState p_152161_, BlockEntityType<T> type) {
+        return createTickerHelper(type, CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER, AdvancedCharmTE::tick);
     }
 
     @Override
@@ -62,11 +58,14 @@ public class AdvancedCharmBlock extends BaseEntityBlock {
         }
     }
 
+    @Override
+    public RenderShape getRenderShape(BlockState p_49090_) {
+        return RenderShape.MODEL;
+    }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return ModTileEntityTypes.ADVANCED_CHARM_CONTAINER.get().create(blockPos, blockState);
+        return CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER.create(blockPos, blockState);
     }
-
 }
-

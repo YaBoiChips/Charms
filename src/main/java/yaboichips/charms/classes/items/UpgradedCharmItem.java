@@ -10,11 +10,11 @@ import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class CharmItem extends Item implements ICurioItem {
+public class UpgradedCharmItem extends Item implements ICurioItem {
     public MobEffect effect;
 
 
-    public CharmItem(Properties properties, MobEffect effects) {
+    public UpgradedCharmItem(Properties properties, MobEffect effects) {
         super(properties);
         this.effect = effects;
     }
@@ -31,7 +31,6 @@ public class CharmItem extends Item implements ICurioItem {
         return true;
     }
 
-
     @Override
     public int getItemStackLimit(ItemStack stack) {
         return 1;
@@ -44,8 +43,8 @@ public class CharmItem extends Item implements ICurioItem {
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Item item = stack.getItem();
-        if (item instanceof CharmItem) {
-            slotContext.entity().addEffect(new MobEffectInstance(((CharmItem) item).getCharmEffect(), 100));
+        if (item instanceof UpgradedCharmItem) {
+            slotContext.entity().addEffect(new MobEffectInstance(((UpgradedCharmItem) item).getCharmEffect(), 50, 1));
         }
     }
 }

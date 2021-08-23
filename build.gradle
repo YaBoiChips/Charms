@@ -6,7 +6,7 @@ buildscript {
         maven {url='https://dist.creeper.host/Sponge/maven'}
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 plugins {
@@ -72,9 +72,21 @@ minecraft {
     }
 }
 
+minecraft.runs.all {
+    property 'ignoreList', 'bootstraplauncher,securejarhandler,asm-commons,asm-util,asm-analysis,asm-tree,asm,client-extra,fmlcore,javafmllanguage,mclanguage,forge-1.17.1-37.0.33,1.17.1-forge-37.0.33'
+}
+
+repositories {
+    maven {
+        name = "curios"
+        url = "https://maven.theillusivec4.top/"
+    }
+}
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.17.1-37.0.13'
+    minecraft 'net.minecraftforge:forge:1.17.1-37.0.33'
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.17.1-5.0.0.1")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.17.1-5.0.0.1:api")
 
 }
 
@@ -90,16 +102,6 @@ jar {
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-}
-
-repositories {
-    maven {
-        url = "https://maven.theillusivec4.top/"
-    }
-}
-
-dependencies {
-
 }
 
 

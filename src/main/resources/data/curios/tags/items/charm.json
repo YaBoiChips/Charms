@@ -27,6 +27,10 @@
     "charms:slow_falling_charm",
     "charms:absorption_charm",
     "charms:absorption_2_charm",
-    "charms:fire_resistance_charm"
+    "charms:fire_resistance_charm",
+    "charms:spider_charm",
+    "charms:bounce_charm",
+    "charms:steel_toed_charm",
+    "charms:fall_charm"
   ]
 }

@@ -1,33 +1,30 @@
 package yaboichips.charms.container;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraftforge.fml.common.Mod;
-import yaboichips.charms.Charms;
-import yaboichips.charms.classes.ModContainerTypes;
-import yaboichips.charms.lists.BlockList;
-import yaboichips.charms.tileentitys.AdvancedCharmTE;
-
-import java.util.Objects;
+import yaboichips.charms.core.CharmContainerTypes;
 
 
-@Mod.EventBusSubscriber(modid = Charms.CHARMS, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AdvancedCharmContainer extends AbstractContainerMenu {
 
-    public final AdvancedCharmTE tileEntity;
-    private final ContainerLevelAccess canInteractWithCallable;
+    private static final int CONTAINER_SIZE = 9;
+    private final Container container;
 
-    public AdvancedCharmContainer(final int windowId, final Inventory playerInventory,
-                                  final AdvancedCharmTE tileEntity) {
-        super(ModContainerTypes.ADVANCED_CHARM_CONTAINER.get(), windowId);
-        this.tileEntity = tileEntity;
-        this.canInteractWithCallable = ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos());
+    public AdvancedCharmContainer(int p_40188_, Inventory playerInv) {
+        this(p_40188_, playerInv, new SimpleContainer(9));
+    }
+
+
+    public AdvancedCharmContainer(int slot, Inventory playerInventory, Container container) {
+        super(CharmContainerTypes.ADVANCED_CHARM_CONTAINER, slot);
+        checkContainerSize(container, 9);
+        this.container = container;
+        container.startOpen(playerInventory.player);
 
         // Main Inventory
         int startX = 8;
@@ -35,7 +32,7 @@ public class AdvancedCharmContainer extends AbstractContainerMenu {
         int slotSizePlus2 = 18;
         for (int row = 0; row < 1; ++row) {
             for (int column = 0; column < 9; ++column) {
-                this.addSlot(new Slot(tileEntity, (row * 9) + column, startX + (column * slotSizePlus2),
+                this.addSlot(new Slot(container, (row * 9) + column, startX + (column * slotSizePlus2),
                         startY + (row * slotSizePlus2)));
             }
         }
@@ -56,25 +53,12 @@ public class AdvancedCharmContainer extends AbstractContainerMenu {
         }
     }
 
-    private static AdvancedCharmTE getTileEntity(final Inventory playerInventory,
-                                                 final FriendlyByteBuf data) {
-        Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
-        Objects.requireNonNull(data, "data cannot be null");
-        final BlockEntity tileAtPos = playerInventory.player.level.getBlockEntity(data.readBlockPos());
-        if (tileAtPos instanceof AdvancedCharmTE) {
-            return (AdvancedCharmTE) tileAtPos;
-        }
-        throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
-    }
 
-    public AdvancedCharmContainer(final int windowId, final Inventory playerInventory, FriendlyByteBuf data) {
-        this(windowId, playerInventory, getTileEntity(playerInventory, data));
-    }
 
 
     @Override
     public boolean stillValid(Player playerIn) {
-        return stillValid(canInteractWithCallable, playerIn, BlockList.ADVANCED_CHARM_CONTAINER);
+        return this.container.stillValid(playerIn);
     }
 
     @Override

@@ -33,6 +33,11 @@
   "item.charms.absorption_charm": "Absorption Charm",
   "item.charms.absorption_2_charm": "Absorption 2 Charm",
   "item.charms.charm_base": "Charm Base",
+  "item.charms.spider_charm": "Spider Charm",
+  "item.charms.steel_toed_charm": "Steel Toed Charm",
+  "item.charms.bounce_charm": "Bounce Charm",
+  "item.charms.fall_charm": "Fall Charm",
+
 
   "item.charms.fire_resistance_charm": "Fire Resistance Charm"
 }

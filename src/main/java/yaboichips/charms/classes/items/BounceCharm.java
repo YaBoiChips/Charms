@@ -2,21 +2,20 @@ package yaboichips.charms.classes.items;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class CharmItem extends Item implements ICurioItem {
-    public MobEffect effect;
-
-
-    public CharmItem(Properties properties, MobEffect effects) {
+public class BounceCharm extends Item implements ICurioItem {
+    public BounceCharm(Properties properties) {
         super(properties);
-        this.effect = effects;
+    }
+
+    @Override
+    public int getItemStackLimit(ItemStack stack) {
+        return 1;
     }
 
     @Override
@@ -31,21 +30,16 @@ public class CharmItem extends Item implements ICurioItem {
         return true;
     }
 
-
-    @Override
-    public int getItemStackLimit(ItemStack stack) {
-        return 1;
-    }
-
-    public MobEffect getCharmEffect(){
-        return this.effect;
-    }
-
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
-        Item item = stack.getItem();
-        if (item instanceof CharmItem) {
-            slotContext.entity().addEffect(new MobEffectInstance(((CharmItem) item).getCharmEffect(), 100));
+        LivingEntity entity = slotContext.entity();
+        if (entity.isOnGround()) {
+            if (!entity.isCrouching()) {
+                double f = 0.91d + 0.04d;
+                entity.setDeltaMovement(entity.getDeltaMovement().x() / f, -entity.getDeltaMovement().y() + 1, entity.getDeltaMovement().z() / f);
+                entity.setOnGround(false);
+                entity.playSound(SoundEvents.SLIME_SQUISH, 1f, 1f);
+            }
         }
     }
 }
