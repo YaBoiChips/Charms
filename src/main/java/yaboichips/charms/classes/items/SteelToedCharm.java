@@ -43,10 +43,10 @@ public class SteelToedCharm extends Item implements ICurioItem {
         BlockState state = world.getBlockState(new BlockPos(player.getX(), player.getY() - 1, player.getZ()));
         BlockState state2 = world.getBlockState(new BlockPos(player.getX(), player.getY(), player.getZ()));
 
-        if (state.getBlock() == Blocks.MAGMA_BLOCK){
+        if (state.getBlock() == Blocks.MAGMA_BLOCK) {
             player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 10));
         }
-        if (state2.getBlock() == Blocks.WITHER_ROSE){
+        if (state2.getBlock() == Blocks.WITHER_ROSE) {
             player.removeEffect(MobEffects.WITHER);
         }
     }

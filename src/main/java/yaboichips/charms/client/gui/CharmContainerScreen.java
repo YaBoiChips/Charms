@@ -30,7 +30,6 @@ public class CharmContainerScreen extends AbstractContainerScreen<CharmContainer
     }
 
 
-
     @Override
     protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.clearColor(1.0f, 1.0f, 1.0f, 1.0f);

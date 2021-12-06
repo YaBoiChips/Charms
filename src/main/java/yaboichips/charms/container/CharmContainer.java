@@ -11,7 +11,6 @@ import yaboichips.charms.core.CharmContainerTypes;
 
 public class CharmContainer extends AbstractContainerMenu {
 
-    private static final int CONTAINER_SIZE = 9;
     private final Container container;
 
     public CharmContainer(int i, Inventory playerInv) {

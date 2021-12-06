@@ -27,8 +27,8 @@ public class AdvancedContainerScreen extends AbstractContainerScreen<AdvancedCha
     @Override
     public void render(PoseStack matrixStack, final int mouseX, final int mouseY, final float partialTicks) {
         this.renderBackground(matrixStack);
-        super.render(matrixStack,mouseX, mouseY, partialTicks);
-        this.renderTooltip(matrixStack,mouseX, mouseY);
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
 
@@ -38,6 +38,6 @@ public class AdvancedContainerScreen extends AbstractContainerScreen<AdvancedCha
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
-        this.blit(matrixStack ,x, y, 0, 0, this.imageWidth, this.imageHeight);
+        this.blit(matrixStack, x, y, 0, 0, this.imageWidth, this.imageHeight);
     }
 }

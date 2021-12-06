@@ -36,7 +36,7 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> chestContents = NonNullList.withSize(36, ItemStack.EMPTY);
     protected int numPlayersUsing;
     private final IItemHandlerModifiable items = createHandler();
-    private LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
+    private final LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
 
     public UltimateCharmTE(BlockPos pos, BlockState state) {
         super(CharmTileEntityTypes.ULTAMITE_CHARM_CONTAINER, pos, state);
@@ -146,8 +146,7 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
     }
 
 
-
-    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, UltimateCharmTE tile){
+    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, UltimateCharmTE tile) {
         tile.addEffectsToPlayers(world);
     }
 

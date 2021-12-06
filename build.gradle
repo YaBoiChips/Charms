@@ -7,6 +7,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+
     }
 }
 plugins {
@@ -19,11 +20,11 @@ version = '1.0'
 group = 'yaboichips.charms' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'charms'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '16' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '17' // Need this here so eclipse task generates correctly.
 
 println('Java: ' + System.getProperty('java.version') + 'JVM:' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'official', version: '1.17.1'
+    mappings channel: 'official', version: '1.18'
     runs {
         client {
             workingDirectory project.file('run')
@@ -73,7 +74,7 @@ minecraft {
 }
 
 minecraft.runs.all {
-    property 'ignoreList', 'bootstraplauncher,securejarhandler,asm-commons,asm-util,asm-analysis,asm-tree,asm,client-extra,fmlcore,javafmllanguage,mclanguage,forge-1.17.1-37.0.33,1.17.1-forge-37.0.33'
+    property 'ignoreList', 'bootstraplauncher,securejarhandler,asm-commons,asm-util,asm-analysis,asm-tree,asm,client-extra,fmlcore,javafmllanguage,mclanguage,forge-1.18-38.0.15,1.18-38.0.15'
 }
 
 repositories {
@@ -84,9 +85,11 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.17.1-37.0.33'
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.17.1-5.0.0.1")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.17.1-5.0.0.1:api")
+    minecraft 'net.minecraftforge:forge:1.18-38.0.15'
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.3")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18-5.0.2.3:api")
+    implementation('cpw.mods:securejarhandler') { version { strictly '0.9.45' } }
+
 
 }
 

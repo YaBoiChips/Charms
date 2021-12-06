@@ -2,19 +2,16 @@ package yaboichips.charms.util;
 
 import net.minecraftforge.fml.ModList;
 
-public enum CuriosModCheck
-{
+public enum CuriosModCheck {
     CURIOS("curios");
 
     private final boolean loaded;
 
-    CuriosModCheck(String modid)
-    {
+    CuriosModCheck(String modid) {
         this.loaded = ModList.get() != null && ModList.get().getModContainerById(modid).isPresent();
     }
 
-    public boolean isLoaded()
-    {
+    public boolean isLoaded() {
         return this.loaded;
     }
 }

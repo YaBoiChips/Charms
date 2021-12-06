@@ -99,6 +99,7 @@ public class Charms {
             CharmTileEntityTypes.blockentity = null;
             Charms.LOGGER.info("Charms: Block Entities registered!");
         }
+
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             LOGGER.info("HELLO from Register Items");
@@ -108,6 +109,7 @@ public class Charms {
             CharmItems.items = null;
             LOGGER.info("BYE from Register Items");
         }
+
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             LOGGER.info("HELLO from Register Blocks");
@@ -117,6 +119,7 @@ public class Charms {
             CharmBlocks.blocks = null;
             LOGGER.info("BYE from Register Blocks");
         }
+
         @SubscribeEvent
         public static void onMenuRegistry(final RegistryEvent.Register<MenuType<?>> event) {
             LOGGER.info("HELLO from Register Blocks");

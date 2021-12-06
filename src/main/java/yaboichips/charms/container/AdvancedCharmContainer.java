@@ -54,8 +54,6 @@ public class AdvancedCharmContainer extends AbstractContainerMenu {
     }
 
 
-
-
     @Override
     public boolean stillValid(Player playerIn) {
         return this.container.stillValid(playerIn);
@@ -84,6 +82,7 @@ public class AdvancedCharmContainer extends AbstractContainerMenu {
         }
         return itemstack;
     }
+
     public void removed(Player playerIn) {
         super.removed(playerIn);
     }

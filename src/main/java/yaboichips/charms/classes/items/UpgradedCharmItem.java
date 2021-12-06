@@ -36,7 +36,7 @@ public class UpgradedCharmItem extends Item implements ICurioItem {
         return 1;
     }
 
-    public MobEffect getCharmEffect(){
+    public MobEffect getCharmEffect() {
         return this.effect;
     }
 

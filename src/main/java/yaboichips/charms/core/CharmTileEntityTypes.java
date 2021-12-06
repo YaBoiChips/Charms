@@ -14,28 +14,26 @@ import yaboichips.charms.tileentitys.UltimateCharmTE;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharmTileEntityTypes<T extends BlockEntity> extends net.minecraftforge.registries.ForgeRegistryEntry<BlockEntityType<?>> {
+public class CharmTileEntityTypes {
 
-        public static List<BlockEntityType<?>> blockentity = new ArrayList<>();
+    public static List<BlockEntityType<?>> blockentity = new ArrayList<>();
 
+    public static final BlockEntityType<CharmContainerTE> CHARM_CONTAINER = register("charm_container", BlockEntityType.Builder.of(CharmContainerTE::new, CharmBlocks.CHARM_CONTAINER));
 
-        public static final BlockEntityType<CharmContainerTE> CHARM_CONTAINER = register("charm_container", BlockEntityType.Builder.of(CharmContainerTE::new, CharmBlocks.CHARM_CONTAINER));
+    public static final BlockEntityType<UltimateCharmTE> ULTAMITE_CHARM_CONTAINER = register("ultamite_charm_container", BlockEntityType.Builder.of(UltimateCharmTE::new, CharmBlocks.ULTIMATE_CHARM_CONTAINER));
 
-        public static final BlockEntityType<UltimateCharmTE> ULTAMITE_CHARM_CONTAINER = register("ultamite_charm_container", BlockEntityType.Builder.of(UltimateCharmTE::new, CharmBlocks.ULTIMATE_CHARM_CONTAINER));
-
-        public static final BlockEntityType<AdvancedCharmTE> ADVANCED_CHARM_CONTAINER = register("advanced_charm_container", BlockEntityType.Builder.of(AdvancedCharmTE::new, CharmBlocks.ADVANCED_CHARM_CONTAINER));
-
-
-        private static <T extends BlockEntity> BlockEntityType<T> register(String key, BlockEntityType.Builder<T> builder) {
-                Type<?> type = Util.fetchChoiceType(References.BLOCK_ENTITY, key);
-                BlockEntityType<T> blockEntityType = builder.build(type);
-                blockEntityType.setRegistryName(new ResourceLocation(Charms.MOD_ID, key));
-                blockentity.add(blockEntityType);
-                return blockEntityType;
-        }
+    public static final BlockEntityType<AdvancedCharmTE> ADVANCED_CHARM_CONTAINER = register("advanced_charm_container", BlockEntityType.Builder.of(AdvancedCharmTE::new, CharmBlocks.ADVANCED_CHARM_CONTAINER));
 
 
-        public static void init() {
-        }
+    private static <T extends BlockEntity> BlockEntityType<T> register(String key, BlockEntityType.Builder<T> builder) {
+        Type<?> type = Util.fetchChoiceType(References.BLOCK_ENTITY, key);
+        BlockEntityType<T> blockEntityType = builder.build(type);
+        blockEntityType.setRegistryName(new ResourceLocation(Charms.MOD_ID, key));
+        blockentity.add(blockEntityType);
+        return blockEntityType;
+    }
 
+
+    public static void init() {
+    }
 }

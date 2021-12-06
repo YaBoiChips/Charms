@@ -84,6 +84,7 @@ public class UltimateCharmContainer extends AbstractContainerMenu {
         }
         return itemstack;
     }
+
     public void removed(Player playerIn) {
         super.removed(playerIn);
     }

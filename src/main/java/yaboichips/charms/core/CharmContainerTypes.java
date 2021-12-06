@@ -16,7 +16,6 @@ public class CharmContainerTypes {
     public static List<MenuType<?>> menus = new ArrayList<>();
 
 
-
     public static final MenuType<CharmContainer> CHARM_CONTAINER = register("charm_container", CharmContainer::new);
 
     public static final MenuType<UltimateCharmContainer> ULTIMATE_CHARM_CONTAINER = register("ultimate_charm_container", UltimateCharmContainer::new);
@@ -31,7 +30,7 @@ public class CharmContainerTypes {
         return menuType;
     }
 
-    public static void init(){
+    public static void init() {
 
     }
 

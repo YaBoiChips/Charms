@@ -19,21 +19,21 @@ public class CharmBlocks {
     public static List<Block> blocks = new ArrayList<>();
 
 
-                    public static Block CHARM_CONTAINER = registerBlock("charm_container", new CharmContainerBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(4.0f, 1.5f).sound(SoundType.WOOD)));
-                    public static Block ADVANCED_CHARM_CONTAINER = registerBlock("advanced_charm_container", new AdvancedCharmBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(4.0f, 1.5f).sound(SoundType.WOOD)));
-                    public static Block ULTIMATE_CHARM_CONTAINER = registerBlock("ultimate_charm_container", new UltimateCharmBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(4.0f, 1.5f).sound(SoundType.WOOD)));
+    public static Block CHARM_CONTAINER = registerBlock("charm_container", new CharmContainerBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(4.0f, 1.5f).sound(SoundType.WOOD)));
+    public static Block ADVANCED_CHARM_CONTAINER = registerBlock("advanced_charm_container", new AdvancedCharmBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(4.0f, 1.5f).sound(SoundType.WOOD)));
+    public static Block ULTIMATE_CHARM_CONTAINER = registerBlock("ultimate_charm_container", new UltimateCharmBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(4.0f, 1.5f).sound(SoundType.WOOD)));
 
-        static @Nonnull
-        <T extends Block> T registerBlock(String id, @Nonnull T block) {
-            block.setRegistryName(new ResourceLocation(Charms.MOD_ID, id));
+    static @Nonnull
+    <T extends Block> T registerBlock(String id, @Nonnull T block) {
+        block.setRegistryName(new ResourceLocation(Charms.MOD_ID, id));
 
-            blocks.add(block);
+        blocks.add(block);
 
-            return block;
-        }
+        return block;
+    }
 
-        public static void init() {
-        }
-        }
+    public static void init() {
+    }
+}
 
 

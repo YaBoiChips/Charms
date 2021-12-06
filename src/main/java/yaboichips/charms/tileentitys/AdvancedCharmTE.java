@@ -31,18 +31,16 @@ import yaboichips.charms.core.CharmTileEntityTypes;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class AdvancedCharmTE extends RandomizableContainerBlockEntity{
+public class AdvancedCharmTE extends RandomizableContainerBlockEntity {
 
     private NonNullList<ItemStack> chestContents = NonNullList.withSize(9, ItemStack.EMPTY);
     protected int numPlayersUsing;
     private final IItemHandlerModifiable items = createHandler();
-    private LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
+    private final LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
 
     public AdvancedCharmTE(BlockPos pos, BlockState state) {
         super(CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER, pos, state);
     }
-
-
 
     @Override
     public int getContainerSize() {
@@ -157,7 +155,7 @@ public class AdvancedCharmTE extends RandomizableContainerBlockEntity{
         }
     }
 
-    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, AdvancedCharmTE tile){
+    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, AdvancedCharmTE tile) {
         tile.addEffectsToPlayers(world);
     }
 
@@ -168,14 +166,14 @@ public class AdvancedCharmTE extends RandomizableContainerBlockEntity{
                 ItemStack itemInSlot = this.getItem(i);
                 List<Player> list = world.getEntitiesOfClass(Player.class, axisalignedbb);
                 for (Player playerentity : list) {
-                        if (itemInSlot.getItem() instanceof CharmItem) {
-                            playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot.getItem()).getCharmEffect(), 100));
-                        }
+                    if (itemInSlot.getItem() instanceof CharmItem) {
+                        playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot.getItem()).getCharmEffect(), 100));
+                    }
                     if (itemInSlot.getItem() instanceof UpgradedCharmItem) {
                         playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot.getItem()).getCharmEffect(), 50, 1));
-                    }
                     }
                 }
             }
         }
     }
+}

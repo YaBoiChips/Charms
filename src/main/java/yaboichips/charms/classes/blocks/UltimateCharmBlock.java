@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
 import yaboichips.charms.core.CharmTileEntityTypes;
 import yaboichips.charms.tileentitys.UltimateCharmTE;
 
@@ -27,10 +27,9 @@ public class UltimateCharmBlock extends BaseEntityBlock {
     }
 
 
-
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
-                                             InteractionHand handIn, BlockHitResult result) {
+                                 InteractionHand handIn, BlockHitResult result) {
         if (!worldIn.isClientSide) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
             if (tile instanceof UltimateCharmTE) {
@@ -40,7 +39,7 @@ public class UltimateCharmBlock extends BaseEntityBlock {
         }
         return InteractionResult.FAIL;
     }
-   
+
 
     @Override
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {

@@ -42,8 +42,7 @@ public class SpiderCharm extends Item implements ICurioItem {
     public static void tryMakeEntityClimb(Level worldIn, LivingEntity entity, double climbSpeed) {
         if (entity.isCrouching()) {
             entity.setDeltaMovement(entity.getDeltaMovement().x, 0.0, entity.getDeltaMovement().z);
-        }
-        else if (entity.moveDist > 0.0F && entity.getDeltaMovement().y < climbSpeed) {
+        } else if (entity.moveDist > 0.0F && entity.getDeltaMovement().y < climbSpeed) {
             entity.setDeltaMovement(entity.getDeltaMovement().x, climbSpeed, entity.getDeltaMovement().z);
             entity.fallDistance = 0.0F;
         }

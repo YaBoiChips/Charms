@@ -36,7 +36,7 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> chestContents = NonNullList.withSize(1, ItemStack.EMPTY);
     protected int numPlayersUsing;
     private final IItemHandlerModifiable items = createHandler();
-    private LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
+    private final LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
 
 
     public CharmContainerTE(BlockPos pos, BlockState state) {
@@ -154,7 +154,7 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         }
     }
 
-    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, CharmContainerTE tile){
+    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, CharmContainerTE tile) {
         tile.addEffectsToPlayers(world);
     }
 
