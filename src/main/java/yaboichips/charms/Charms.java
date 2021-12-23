@@ -14,7 +14,9 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -29,8 +31,9 @@ import yaboichips.charms.core.CharmBlocks;
 import yaboichips.charms.core.CharmContainerTypes;
 import yaboichips.charms.core.CharmItems;
 import yaboichips.charms.core.CharmTileEntityTypes;
-import yaboichips.charms.properties.CharmProperties;
+import yaboichips.charms.util.CharmsConfig;
 import yaboichips.charms.util.CuriosModCheck;
+import yaboichips.charms.util.events.CharmProperties;
 
 
 @Mod("charms")
@@ -41,13 +44,12 @@ public class Charms {
 
     public Charms() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::enqueueIMC);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new CharmProperties());
-
-
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CharmsConfig.getConfigSpec(), "charms.toml");
     }
 
     public static void register() {

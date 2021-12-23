@@ -1,4 +1,4 @@
-package yaboichips.charms.classes.blocks;
+package yaboichips.charms.common.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,14 +15,15 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
+import yaboichips.charms.common.tileentitys.AdvancedCharmTE;
 import yaboichips.charms.core.CharmTileEntityTypes;
-import yaboichips.charms.tileentitys.UltimateCharmTE;
 
 import javax.annotation.Nullable;
 
-public class UltimateCharmBlock extends BaseEntityBlock {
 
-    public UltimateCharmBlock(Properties properties) {
+public class AdvancedCharmBlock extends BaseEntityBlock {
+
+    public AdvancedCharmBlock(Properties properties) {
         super(properties);
     }
 
@@ -32,31 +33,29 @@ public class UltimateCharmBlock extends BaseEntityBlock {
                                  InteractionHand handIn, BlockHitResult result) {
         if (!worldIn.isClientSide) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
-            if (tile instanceof UltimateCharmTE) {
-                NetworkHooks.openGui((ServerPlayer) player, (UltimateCharmTE) tile, pos);
+            if (tile instanceof AdvancedCharmTE) {
+                NetworkHooks.openGui((ServerPlayer) player, (AdvancedCharmTE) tile, pos);
                 return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.FAIL;
     }
 
+    @Override
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152160_, BlockState p_152161_, BlockEntityType<T> type) {
+        return createTickerHelper(type, CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER, AdvancedCharmTE::tick);
+    }
 
     @Override
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity te = worldIn.getBlockEntity(pos);
-            if (te instanceof UltimateCharmTE) {
-                Containers.dropContents(worldIn, pos, ((UltimateCharmTE) te).getItems());
+            if (te instanceof AdvancedCharmTE) {
+                Containers.dropContents(worldIn, pos, ((AdvancedCharmTE) te).getItems());
             }
             super.onRemove(state, worldIn, pos, newState, isMoving);
         }
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return CharmTileEntityTypes.ULTAMITE_CHARM_CONTAINER.create(blockPos, blockState);
-
     }
 
     @Override
@@ -64,10 +63,11 @@ public class UltimateCharmBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
-
-    @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152160_, BlockState p_152161_, BlockEntityType<T> type) {
-        return createTickerHelper(type, CharmTileEntityTypes.ULTAMITE_CHARM_CONTAINER, UltimateCharmTE::tick);
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER.create(blockPos, blockState);
     }
+
+
 }

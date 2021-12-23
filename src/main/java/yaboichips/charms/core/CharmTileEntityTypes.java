@@ -7,9 +7,9 @@ import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import yaboichips.charms.Charms;
-import yaboichips.charms.tileentitys.AdvancedCharmTE;
-import yaboichips.charms.tileentitys.CharmContainerTE;
-import yaboichips.charms.tileentitys.UltimateCharmTE;
+import yaboichips.charms.common.tileentitys.AdvancedCharmTE;
+import yaboichips.charms.common.tileentitys.CharmContainerTE;
+import yaboichips.charms.common.tileentitys.UltimateCharmTE;
 
 import java.util.ArrayList;
 import java.util.List;

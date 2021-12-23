@@ -4,9 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import yaboichips.charms.Charms;
-import yaboichips.charms.container.AdvancedCharmContainer;
-import yaboichips.charms.container.CharmContainer;
-import yaboichips.charms.container.UltimateCharmContainer;
+import yaboichips.charms.common.container.*;
 
 import java.util.ArrayList;
 import java.util.List;

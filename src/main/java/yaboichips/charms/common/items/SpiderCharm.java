@@ -1,13 +1,15 @@
-package yaboichips.charms.classes.items;
+package yaboichips.charms.common.items;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import yaboichips.charms.util.CharmsConfig;
 
 public class SpiderCharm extends Item implements ICurioItem {
     public SpiderCharm(Properties properties) {
@@ -45,6 +47,12 @@ public class SpiderCharm extends Item implements ICurioItem {
         } else if (entity.moveDist > 0.0F && entity.getDeltaMovement().y < climbSpeed) {
             entity.setDeltaMovement(entity.getDeltaMovement().x, climbSpeed, entity.getDeltaMovement().z);
             entity.fallDistance = 0.0F;
+        }
+    }
+    @Override
+    public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
+        if (!CharmsConfig.getInstance().allowSpiderCharm()){
+            stack.shrink(stack.getCount());
         }
     }
 }

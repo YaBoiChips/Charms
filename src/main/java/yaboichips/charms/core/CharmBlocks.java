@@ -6,9 +6,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import yaboichips.charms.Charms;
-import yaboichips.charms.classes.blocks.AdvancedCharmBlock;
-import yaboichips.charms.classes.blocks.CharmContainerBlock;
-import yaboichips.charms.classes.blocks.UltimateCharmBlock;
+import yaboichips.charms.common.blocks.*;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

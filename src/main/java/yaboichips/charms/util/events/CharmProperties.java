@@ -1,4 +1,4 @@
-package yaboichips.charms.properties;
+package yaboichips.charms.util.events;
 
 
 import net.minecraft.world.effect.MobEffectInstance;
@@ -8,8 +8,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yaboichips.charms.Charms;
-import yaboichips.charms.classes.items.CharmItem;
-import yaboichips.charms.classes.items.UpgradedCharmItem;
+import yaboichips.charms.common.items.*;
 
 @Mod.EventBusSubscriber(modid = Charms.MOD_ID)
 public class CharmProperties {
@@ -26,4 +25,6 @@ public class CharmProperties {
 
         }
     }
+
+
 }

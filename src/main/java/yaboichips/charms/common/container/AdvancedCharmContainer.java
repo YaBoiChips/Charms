@@ -1,4 +1,4 @@
-package yaboichips.charms.container;
+package yaboichips.charms.common.container;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;

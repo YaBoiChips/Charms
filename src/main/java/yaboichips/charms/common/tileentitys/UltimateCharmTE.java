@@ -1,4 +1,4 @@
-package yaboichips.charms.tileentitys;
+package yaboichips.charms.common.tileentitys;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,10 +22,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import yaboichips.charms.classes.blocks.UltimateCharmBlock;
-import yaboichips.charms.classes.items.CharmItem;
-import yaboichips.charms.classes.items.UpgradedCharmItem;
-import yaboichips.charms.container.UltimateCharmContainer;
+import yaboichips.charms.common.blocks.UltimateCharmBlock;
+import yaboichips.charms.common.container.UltimateCharmContainer;
+import yaboichips.charms.common.items.CharmItem;
+import yaboichips.charms.common.items.UpgradedCharmItem;
 import yaboichips.charms.core.CharmTileEntityTypes;
 
 import javax.annotation.Nonnull;

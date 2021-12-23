@@ -1,10 +1,11 @@
-package yaboichips.charms.classes.items;
+package yaboichips.charms.common.items;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import yaboichips.charms.util.CharmsConfig;
 
 public class SteelToedCharm extends Item implements ICurioItem {
     public SteelToedCharm(Properties properties) {
@@ -50,4 +52,11 @@ public class SteelToedCharm extends Item implements ICurioItem {
             player.removeEffect(MobEffects.WITHER);
         }
     }
+    @Override
+    public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
+        if (!CharmsConfig.getInstance().allowSteelToedCharm()){
+            stack.shrink(stack.getCount());
+        }
+    }
+
 }

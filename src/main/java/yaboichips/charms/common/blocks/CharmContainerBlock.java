@@ -1,4 +1,4 @@
-package yaboichips.charms.classes.blocks;
+package yaboichips.charms.common.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
+import yaboichips.charms.common.tileentitys.CharmContainerTE;
 import yaboichips.charms.core.CharmTileEntityTypes;
-import yaboichips.charms.tileentitys.CharmContainerTE;
 
 import javax.annotation.Nullable;
 

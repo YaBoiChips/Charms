@@ -1,4 +1,4 @@
-package yaboichips.charms.tileentitys;
+package yaboichips.charms.common.tileentitys;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,30 +22,29 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import yaboichips.charms.classes.blocks.CharmContainerBlock;
-import yaboichips.charms.classes.items.CharmItem;
-import yaboichips.charms.classes.items.UpgradedCharmItem;
-import yaboichips.charms.container.CharmContainer;
+import yaboichips.charms.common.blocks.AdvancedCharmBlock;
+import yaboichips.charms.common.container.AdvancedCharmContainer;
+import yaboichips.charms.common.items.CharmItem;
+import yaboichips.charms.common.items.UpgradedCharmItem;
 import yaboichips.charms.core.CharmTileEntityTypes;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class CharmContainerTE extends RandomizableContainerBlockEntity {
+public class AdvancedCharmTE extends RandomizableContainerBlockEntity {
 
-    private NonNullList<ItemStack> chestContents = NonNullList.withSize(1, ItemStack.EMPTY);
+    private NonNullList<ItemStack> chestContents = NonNullList.withSize(9, ItemStack.EMPTY);
     protected int numPlayersUsing;
     private final IItemHandlerModifiable items = createHandler();
     private final LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
 
-
-    public CharmContainerTE(BlockPos pos, BlockState state) {
-        super(CharmTileEntityTypes.CHARM_CONTAINER, pos, state);
+    public AdvancedCharmTE(BlockPos pos, BlockState state) {
+        super(CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER, pos, state);
     }
 
     @Override
     public int getContainerSize() {
-        return 1;
+        return 9;
     }
 
     @Override
@@ -65,13 +64,14 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return new TranslatableComponent("container.charm_container");
+        return new TranslatableComponent("container.advanced_charm_container");
     }
 
     @Override
     protected AbstractContainerMenu createMenu(int id, Inventory player) {
-        return new CharmContainer(id, player, this);
+        return new AdvancedCharmContainer(id, player, this);
     }
+
 
     @Override
     public CompoundTag save(CompoundTag compound) {
@@ -88,6 +88,7 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         if (!this.tryLoadLootTable(p_155055_)) {
             ContainerHelper.loadAllItems(p_155055_, this.chestContents);
         }
+
     }
 
     @Override
@@ -119,14 +120,14 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         }
     }
 
+
     protected void onOpenOrClose() {
         Block block = this.getBlockState().getBlock();
-        if (block instanceof CharmContainerBlock) {
+        if (block instanceof AdvancedCharmBlock) {
             this.level.blockEvent(this.worldPosition, block, 1, this.numPlayersUsing);
             this.level.updateNeighborsAt(this.worldPosition, block);
         }
     }
-
 
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nonnull Direction side) {
@@ -154,7 +155,7 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         }
     }
 
-    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, CharmContainerTE tile) {
+    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, AdvancedCharmTE tile) {
         tile.addEffectsToPlayers(world);
     }
 
@@ -176,5 +177,3 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         }
     }
 }
-
-
