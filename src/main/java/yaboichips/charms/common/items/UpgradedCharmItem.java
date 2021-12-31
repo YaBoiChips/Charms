@@ -46,7 +46,7 @@ public class UpgradedCharmItem extends Item implements ICurioItem {
     }
 
     public boolean isAllowed() {
-        return allowed;
+        return this.allowed;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class UpgradedCharmItem extends Item implements ICurioItem {
     }
     @Override
     public void inventoryTick(ItemStack stack, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
-        if (this.isAllowed()){
+        if (!this.isAllowed()){
             stack.shrink(stack.getCount());
         }
     }
