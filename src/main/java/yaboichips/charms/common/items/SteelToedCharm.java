@@ -16,9 +16,9 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import yaboichips.charms.util.CharmsConfig;
 
-public class SteelToedCharm extends Item implements ICurioItem {
+public class SteelToedCharm extends CharmItem implements ICurioItem {
     public SteelToedCharm(Properties properties) {
-        super(properties);
+        super(properties, null);
     }
 
     @Override

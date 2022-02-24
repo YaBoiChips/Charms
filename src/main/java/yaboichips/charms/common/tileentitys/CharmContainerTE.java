@@ -11,6 +11,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -154,7 +155,7 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         }
     }
 
-    public static void tick(Level world, BlockPos p_155109_, BlockState p_155110_, CharmContainerTE tile) {
+    public static void tick(Level world, BlockPos pos, BlockState state, CharmContainerTE tile) {
         tile.addEffectsToPlayers(world);
     }
 
@@ -162,14 +163,14 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         if (!world.isClientSide) {
             for (int i = 0; i < this.getContainerSize(); i++) {
                 AABB axisalignedbb = (new AABB(this.worldPosition)).inflate(60).expandTowards(0.0D, world.getMaxBuildHeight(), 0.0D);
-                ItemStack itemInSlot = this.getItem(i);
+                Item itemInSlot = this.getItem(i).getItem();
                 List<Player> list = world.getEntitiesOfClass(Player.class, axisalignedbb);
                 for (Player playerentity : list) {
-                    if (itemInSlot.getItem() instanceof CharmItem) {
-                        playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot.getItem()).getCharmEffect(), 100));
-                    }
-                    if (itemInSlot.getItem() instanceof UpgradedCharmItem) {
-                        playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot.getItem()).getCharmEffect(), 50, 1));
+                    if (((CharmItem)itemInSlot).getCharmEffect() !=null) {
+                        playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 100));
+                        if (itemInSlot instanceof UpgradedCharmItem) {
+                            playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 50, 1));
+                        }
                     }
                 }
             }

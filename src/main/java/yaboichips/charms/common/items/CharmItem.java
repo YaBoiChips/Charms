@@ -14,13 +14,11 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public class CharmItem extends Item implements ICurioItem {
     public MobEffect effect;
-    public boolean allowed;
 
 
-    public CharmItem(Properties properties, MobEffect effects, boolean allowed) {
+    public CharmItem(Properties properties, MobEffect effects) {
         super(properties);
         this.effect = effects;
-        this.allowed = allowed;
     }
 
     @Override
@@ -45,22 +43,14 @@ public class CharmItem extends Item implements ICurioItem {
         return this.effect;
     }
 
-    public boolean isAllowed(){
-        return this.allowed;
-    }
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Item item = stack.getItem();
         if (item instanceof CharmItem) {
-            slotContext.entity().addEffect(new MobEffectInstance(((CharmItem) item).getCharmEffect(), 100));
-        }
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
-        if (!this.isAllowed()){
-            stack.shrink(stack.getCount());
+            if(getCharmEffect() != null) {
+                slotContext.entity().addEffect(new MobEffectInstance(((CharmItem) item).getCharmEffect(), 100));
+            }
         }
     }
 }

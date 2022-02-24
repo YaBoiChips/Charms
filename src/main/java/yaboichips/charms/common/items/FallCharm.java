@@ -11,9 +11,9 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import yaboichips.charms.util.CharmsConfig;
 
-public class FallCharm extends Item implements ICurioItem {
+public class FallCharm extends CharmItem implements ICurioItem {
     public FallCharm(Properties properties) {
-        super(properties);
+        super(properties, null);
     }
 
     @Override

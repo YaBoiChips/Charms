@@ -11,9 +11,9 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import yaboichips.charms.util.CharmsConfig;
 
-public class SpiderCharm extends Item implements ICurioItem {
+public class SpiderCharm extends CharmItem implements ICurioItem {
     public SpiderCharm(Properties properties) {
-        super(properties);
+        super(properties, null);
     }
 
     @Override
