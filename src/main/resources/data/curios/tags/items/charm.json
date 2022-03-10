@@ -31,6 +31,7 @@
     "charms:spider_charm",
     "charms:bounce_charm",
     "charms:steel_toed_charm",
-    "charms:fall_charm"
+    "charms:fall_charm",
+    "charms:step_up_charm"
   ]
 }

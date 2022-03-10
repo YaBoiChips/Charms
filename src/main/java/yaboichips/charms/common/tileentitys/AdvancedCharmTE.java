@@ -163,14 +163,18 @@ public class AdvancedCharmTE extends RandomizableContainerBlockEntity {
     public void addEffectsToPlayers(Level world) {
         if (!world.isClientSide) {
             for (int i = 0; i < this.getContainerSize(); i++) {
-                AABB axisalignedbb = (new AABB(this.worldPosition)).inflate(60).expandTowards(0.0D, world.getMaxBuildHeight(), 0.0D);
+                AABB axisalignedbb = (new AABB(this.worldPosition)).inflate(30).expandTowards(0.0D, world.getMaxBuildHeight(), 0.0D);
                 Item itemInSlot = this.getItem(i).getItem();
                 List<Player> list = world.getEntitiesOfClass(Player.class, axisalignedbb);
                 for (Player playerentity : list) {
-                    if (((CharmItem)itemInSlot).getCharmEffect() !=null) {
-                        playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 100));
+                    if (itemInSlot instanceof CharmItem charm) {
+                        if (charm.getCharmEffect() != null) {
+                            playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 100));
+                        }
                         if (itemInSlot instanceof UpgradedCharmItem) {
-                            playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 50, 1));
+                            if (charm.getCharmEffect() != null) {
+                                playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 50, 1));
+                            }
                         }
                     }
                 }
@@ -178,3 +182,5 @@ public class AdvancedCharmTE extends RandomizableContainerBlockEntity {
         }
     }
 }
+
+

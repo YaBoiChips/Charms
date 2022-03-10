@@ -45,6 +45,7 @@ public class CharmItems {
     public static Item FALL_CHARM = createItem(new FallCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "fall_charm");
     public static Item BOUNCE_CHARM = createItem(new BounceCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "bounce_charm");
     public static Item STEEL_TOED_CHARM = createItem(new SteelToedCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "steel_toed_charm");
+    public static Item STEP_UP_CHARM = createItem(new StepUpCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "step_up_charm");
 
     public static Item CHARM_CONTAINER = createItem(new BlockItem(CharmBlocks.CHARM_CONTAINER, new Item.Properties().tab(Charms.CHARMSTAB)), (CharmBlocks.CHARM_CONTAINER.getRegistryName()));
     public static Item ADVANCED_CHARM_CONTAINER = createItem(new BlockItem(CharmBlocks.ADVANCED_CHARM_CONTAINER, new Item.Properties().tab(Charms.CHARMSTAB)), (CharmBlocks.ADVANCED_CHARM_CONTAINER.getRegistryName()));

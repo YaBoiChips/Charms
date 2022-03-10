@@ -158,10 +158,14 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
                 Item itemInSlot = this.getItem(i).getItem();
                 List<Player> list = world.getEntitiesOfClass(Player.class, axisalignedbb);
                 for (Player playerentity : list) {
-                    if (((CharmItem)itemInSlot).getCharmEffect() !=null) {
-                        playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 100));
+                    if (itemInSlot instanceof CharmItem charm) {
+                        if (charm.getCharmEffect() != null) {
+                            playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 100));
+                        }
                         if (itemInSlot instanceof UpgradedCharmItem) {
-                            playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 50, 1));
+                            if (charm.getCharmEffect() != null) {
+                                playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 50, 1));
+                            }
                         }
                     }
                 }

@@ -46,7 +46,7 @@ public class CharmsConfig {
     }
 
     public CharmsConfig(ForgeConfigSpec.Builder builder) {
-        builder.push("CHARMS CONFIG");
+        builder.push("CHARMS CONFIG [NOT FUNCTIONAL DON'T USE]");
         allowSaturationCharm = builder.define("allowSaturationCharm", true);
         allowSpeedCharm = builder.define("allowSpeedCharm", true);
         allowSpeed2Charm = builder.define("allowSpeed2Charm", true);
