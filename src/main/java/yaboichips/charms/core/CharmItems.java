@@ -6,7 +6,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import yaboichips.charms.Charms;
 import yaboichips.charms.common.items.*;
-import yaboichips.charms.util.CharmsConfig;
 
 import java.util.ArrayList;
 import java.util.List;
