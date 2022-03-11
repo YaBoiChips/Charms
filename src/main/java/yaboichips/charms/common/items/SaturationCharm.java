@@ -12,9 +12,9 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import yaboichips.charms.util.CharmsConfig;
 
-public class SaturationCharm extends Item implements ICurioItem {
+public class SaturationCharm extends CharmItem implements ICurioItem {
     public SaturationCharm(Properties properties) {
-        super(properties);
+        super(properties, null ,0);
     }
 
     @Override

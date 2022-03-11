@@ -70,12 +70,11 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
 
 
     @Override
-    public CompoundTag save(CompoundTag compound) {
-        super.save(compound);
+    public void saveAdditional(CompoundTag compound) {
+        super.saveAdditional(compound);
         if (!this.trySaveLootTable(compound)) {
             ContainerHelper.saveAllItems(compound, this.chestContents);
         }
-        return compound;
     }
 
     public void load(CompoundTag p_155055_) {
@@ -160,11 +159,11 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
                 for (Player playerentity : list) {
                     if (itemInSlot instanceof CharmItem charm) {
                         if (charm.getCharmEffect() != null) {
-                            playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 100));
+                            playerentity.addEffect(new MobEffectInstance(charm.getCharmEffect(), charm.length));
                         }
-                        if (itemInSlot instanceof UpgradedCharmItem) {
+                        if (itemInSlot instanceof UpgradedCharmItem upcharm) {
                             if (charm.getCharmEffect() != null) {
-                                playerentity.addEffect(new MobEffectInstance(((CharmItem) itemInSlot).getCharmEffect(), 50, 1));
+                                playerentity.addEffect(new MobEffectInstance(upcharm.getCharmEffect(), upcharm.length, 1));
                             }
                         }
                     }

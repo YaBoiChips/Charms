@@ -12,11 +12,13 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public class CharmItem extends Item implements ICurioItem {
     public MobEffect effect;
+    public int length;
 
 
-    public CharmItem(Properties properties, MobEffect effects) {
+    public CharmItem(Properties properties, MobEffect effects, int length) {
         super(properties);
         this.effect = effects;
+        this.length = length;
     }
 
     @Override
@@ -45,9 +47,9 @@ public class CharmItem extends Item implements ICurioItem {
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Item item = stack.getItem();
-        if (item instanceof CharmItem) {
+        if (item instanceof CharmItem charm) {
             if(getCharmEffect() != null) {
-                slotContext.entity().addEffect(new MobEffectInstance(((CharmItem) item).getCharmEffect(), 100));
+                slotContext.entity().addEffect(new MobEffectInstance(charm.getCharmEffect(), length));
             }
         }
     }

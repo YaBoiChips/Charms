@@ -4,7 +4,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 
 public class StepUpCharm extends CharmItem implements ICurioItem {
     public StepUpCharm(Properties properties) {
-        super(properties, null);
+        super(properties, null, 0);
     }
 
     public static HashMap<Entity, Boolean> STEP_MAP = new HashMap<>();

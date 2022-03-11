@@ -13,7 +13,7 @@ import yaboichips.charms.util.CharmsConfig;
 
 public class FallCharm extends CharmItem implements ICurioItem {
     public FallCharm(Properties properties) {
-        super(properties, null);
+        super(properties, null, 0);
     }
 
     @Override

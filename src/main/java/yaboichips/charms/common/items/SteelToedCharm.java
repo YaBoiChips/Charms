@@ -18,7 +18,7 @@ import yaboichips.charms.util.CharmsConfig;
 
 public class SteelToedCharm extends CharmItem implements ICurioItem {
     public SteelToedCharm(Properties properties) {
-        super(properties, null);
+        super(properties, null, 0);
     }
 
     @Override

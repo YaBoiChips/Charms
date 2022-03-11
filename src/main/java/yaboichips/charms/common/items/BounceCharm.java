@@ -12,7 +12,7 @@ import yaboichips.charms.util.CharmsConfig;
 
 public class BounceCharm extends CharmItem implements ICurioItem {
     public BounceCharm(Properties properties) {
-        super(properties, null);
+        super(properties, null, 0);
     }
 
     @Override

@@ -13,7 +13,7 @@ import yaboichips.charms.util.CharmsConfig;
 
 public class SpiderCharm extends CharmItem implements ICurioItem {
     public SpiderCharm(Properties properties) {
-        super(properties, null);
+        super(properties, null, 0);
     }
 
     @Override
