@@ -7,6 +7,7 @@ public class CharmsConfig {
     private static final ForgeConfigSpec CONFIG_SPEC;
     private static final CharmsConfig INSTANCE;
 
+    private final ForgeConfigSpec.IntValue charmSlots;
     private final ForgeConfigSpec.BooleanValue allowSaturationCharm;
     private final ForgeConfigSpec.BooleanValue allowSpeedCharm;
     private final ForgeConfigSpec.BooleanValue allowSpeed2Charm;
@@ -46,6 +47,7 @@ public class CharmsConfig {
     }
 
     public CharmsConfig(ForgeConfigSpec.Builder builder) {
+        charmSlots = builder.defineInRange("Charm Slots" , 2,1, 26);
         builder.push("CHARMS CONFIG [NOT FUNCTIONAL DON'T USE]");
         allowSaturationCharm = builder.define("allowSaturationCharm", true);
         allowSpeedCharm = builder.define("allowSpeedCharm", true);
@@ -80,6 +82,8 @@ public class CharmsConfig {
         builder.pop();
 
     }
+
+    public int charmSlots() {return charmSlots.get(); }
 
     public boolean allowSaturationCharm() {
         return allowSaturationCharm.get();
