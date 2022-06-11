@@ -22,7 +22,7 @@ public class UltimateCharmContainer extends AbstractContainerMenu {
 
 
     public UltimateCharmContainer(int slot, Inventory playerInventory, Container container) {
-        super(CharmContainerTypes.ULTIMATE_CHARM_CONTAINER, slot);
+        super(CharmContainerTypes.ULTIMATE_CHARM_CONTAINER.get(), slot);
         checkContainerSize(container, 36);
         this.container = container;
         container.startOpen(playerInventory.player);

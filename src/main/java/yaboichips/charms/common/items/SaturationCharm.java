@@ -2,6 +2,7 @@ package yaboichips.charms.common.items;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +15,7 @@ import yaboichips.charms.util.CharmsConfig;
 
 public class SaturationCharm extends CharmItem implements ICurioItem {
     public SaturationCharm(Properties properties) {
-        super(properties, null ,0);
+        super(properties, MobEffects.BAD_OMEN ,0);
     }
 
     @Override

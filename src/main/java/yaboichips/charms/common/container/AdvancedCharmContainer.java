@@ -21,7 +21,7 @@ public class AdvancedCharmContainer extends AbstractContainerMenu {
 
 
     public AdvancedCharmContainer(int slot, Inventory playerInventory, Container container) {
-        super(CharmContainerTypes.ADVANCED_CHARM_CONTAINER, slot);
+        super(CharmContainerTypes.ADVANCED_CHARM_CONTAINER.get(), slot);
         checkContainerSize(container, 9);
         this.container = container;
         container.startOpen(playerInventory.player);

@@ -58,12 +58,12 @@ public class CharmContainerBlock extends BaseEntityBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152160_, BlockState p_152161_, BlockEntityType<T> type) {
-        return createTickerHelper(type, CharmTileEntityTypes.CHARM_CONTAINER, CharmContainerTE::tick);
+        return createTickerHelper(type, CharmTileEntityTypes.CHARM_CONTAINER.get(), CharmContainerTE::tick);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return CharmTileEntityTypes.CHARM_CONTAINER.create(blockPos, blockState);
+        return CharmTileEntityTypes.CHARM_CONTAINER.get().create(blockPos, blockState);
     }
 }

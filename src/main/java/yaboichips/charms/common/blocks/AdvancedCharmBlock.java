@@ -44,7 +44,7 @@ public class AdvancedCharmBlock extends BaseEntityBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152160_, BlockState p_152161_, BlockEntityType<T> type) {
-        return createTickerHelper(type, CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER, AdvancedCharmTE::tick);
+        return createTickerHelper(type, CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER.get(), AdvancedCharmTE::tick);
     }
 
     @Override
@@ -66,8 +66,6 @@ public class AdvancedCharmBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER.create(blockPos, blockState);
+        return CharmTileEntityTypes.ADVANCED_CHARM_CONTAINER.get().create(blockPos, blockState);
     }
-
-
 }

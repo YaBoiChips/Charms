@@ -2,39 +2,36 @@ buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         mavenCentral()
         maven {url='https://dist.creeper.host/Sponge/maven'}
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
-plugins {
-}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
-version = '1.18.2-1.1.0'
+
+version = '1.19-1.2.0'
 group = 'yaboichips.charms' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'charms'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '17' // Need this here so eclipse task generates correctly.
 
 println('Java: ' + System.getProperty('java.version') + 'JVM:' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: 'official', version: '1.19'
     runs {
         client {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
-
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGamecharmsNamespaces', 'charms'
 
             mods {
                 charms {
@@ -45,14 +42,22 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
-            
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGamecharmsNamespaces', 'charms'
+
+            mods {
+                charms {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gamecharmsServer {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGamecharmsNamespaces', 'charms'
 
             mods {
                 charms {
@@ -63,11 +68,8 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-
             args '--mod', 'charms', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
@@ -79,6 +81,12 @@ minecraft {
     }
 }
 
+mixin {
+    add sourceSets.main, "charms.refmap.json"
+
+    config "charms.mixins.json"
+}
+
 repositories {
     maven {
         name = "curios"
@@ -87,10 +95,10 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.12'
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3:api")
-    implementation('cpw.mods:securejarhandler') { version { strictly '0.9.45' } }
+    minecraft 'net.minecraftforge:forge:1.19-41.0.16'
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19-5.1.0.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19-5.1.0.0:api")
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
 
 }

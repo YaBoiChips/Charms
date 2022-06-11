@@ -55,7 +55,7 @@ public class UltimateCharmBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return CharmTileEntityTypes.ULTAMITE_CHARM_CONTAINER.create(blockPos, blockState);
+        return CharmTileEntityTypes.ULTAMITE_CHARM_CONTAINER.get().create(blockPos, blockState);
 
     }
 
@@ -68,6 +68,6 @@ public class UltimateCharmBlock extends BaseEntityBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152160_, BlockState p_152161_, BlockEntityType<T> type) {
-        return createTickerHelper(type, CharmTileEntityTypes.ULTAMITE_CHARM_CONTAINER, UltimateCharmTE::tick);
+        return createTickerHelper(type, CharmTileEntityTypes.ULTAMITE_CHARM_CONTAINER.get(), UltimateCharmTE::tick);
     }
 }

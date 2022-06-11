@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Inventory;
@@ -41,7 +40,7 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
 
 
     public CharmContainerTE(BlockPos pos, BlockState state) {
-        super(CharmTileEntityTypes.CHARM_CONTAINER, pos, state);
+        super(CharmTileEntityTypes.CHARM_CONTAINER.get(), pos, state);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return new TranslatableComponent("container.charm_container");
+        return Component.translatable("container.charm_container");
     }
 
     @Override

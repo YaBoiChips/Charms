@@ -1,70 +1,54 @@
 package yaboichips.charms.core;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import yaboichips.charms.Charms;
 import yaboichips.charms.common.items.*;
-import yaboichips.charms.util.CharmsConfig;
 
-import java.util.ArrayList;
-import java.util.List;
+import static yaboichips.charms.Charms.MOD_ID;
 
 public class CharmItems {
-    public static List<Item> items = new ArrayList<>();
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 
-    public static Item SATURATION_CHARM = createItem(new SaturationCharm(new Item.Properties().tab(Charms.CHARMSTAB)), ("saturation_charm"));
-    public static Item SPEED_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.MOVEMENT_SPEED, 50), ("speed_charm"));
-    public static Item SPEED_2_CHARM = createItem(new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.MOVEMENT_SPEED, 50), ("speed_2_charm"));
-    public static Item HASTE_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DIG_SPEED, 50), ("haste_charm"));
-    public static Item HASTE_2_CHARM = createItem(new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DIG_SPEED, 50), ("haste_2_charm"));
-    public static Item STRENGTH_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DAMAGE_BOOST, 50), ("strength_charm"));
-    public static Item STRENGTH_2_CHARM = createItem(new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DAMAGE_BOOST, 50), ("strength_2_charm"));
-    public static Item ABSORPTION_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.ABSORPTION, 50), ("absorption_charm"));
-    public static Item GLOWING_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.GLOWING, 50), ("glowing_charm"));
-    public static Item DOLPHIN_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DOLPHINS_GRACE, 50), ("dolphin_charm"));
-    public static Item BLINDNESS_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.BLINDNESS, 50), ("blindness_charm"));
-    public static Item NAUSEA_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.CONFUSION, 220), ("nausea_charm"));
-    public static Item INVISIBILITY_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.INVISIBILITY, 50), ("invisibility_charm"));
-    public static Item LUCK_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.LUCK, 50), ("luck_charm"));
-    public static Item LEVITATION_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.LEVITATION, 50), ("levitation_charm"));
-    public static Item CHARM_BASE = createItem(new Item(new Item.Properties().tab(Charms.CHARMSTAB)), ("charm_base"));
-    public static Item SLOWNESS_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.MOVEMENT_SLOWDOWN, 50), ("slowness_charm"));
-    public static Item SLOW_FALLING_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.SLOW_FALLING, 50), ("slow_falling_charm"));
-    public static Item ABSORPTION_2_CHARM = createItem(new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.ABSORPTION, 50), ("absorption_2_charm"));
-    public static Item FIRE_RESISTANCE_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.FIRE_RESISTANCE, 50), ("fire_resistance_charm"));
-    public static Item WATER_BREATHING_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.WATER_BREATHING, 50), ("water_breathing_charm"));
-    public static Item MINING_FATIGUE_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DIG_SLOWDOWN, 50), ("mining_fatigue_charm"));
-    public static Item NIGHT_VISION_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.NIGHT_VISION, 220), ("night_vision_charm"));
-    public static Item RESISTANCE_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DAMAGE_RESISTANCE, 50), ("resistance_charm"));
-    public static Item RESISTANCE_2_CHARM = createItem(new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DAMAGE_RESISTANCE, 50), ("resistance_2_charm"));
-    public static Item JUMP_CHARM = createItem(new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.JUMP, 50), ("jump_charm"));
-    public static Item JUMP_2_CHARM = createItem(new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.JUMP, 50), ("jump_2_charm"));
-    public static Item SPIDER_CHARM = createItem(new SpiderCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "spider_charm");
-    public static Item FALL_CHARM = createItem(new FallCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "fall_charm");
-    public static Item BOUNCE_CHARM = createItem(new BounceCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "bounce_charm");
-    public static Item STEEL_TOED_CHARM = createItem(new SteelToedCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "steel_toed_charm");
-    public static Item STEP_UP_CHARM = createItem(new StepUpCharm(new Item.Properties().tab(Charms.CHARMSTAB)), "step_up_charm");
 
-    public static Item CHARM_CONTAINER = createItem(new BlockItem(CharmBlocks.CHARM_CONTAINER, new Item.Properties().tab(Charms.CHARMSTAB)), (CharmBlocks.CHARM_CONTAINER.getRegistryName()));
-    public static Item ADVANCED_CHARM_CONTAINER = createItem(new BlockItem(CharmBlocks.ADVANCED_CHARM_CONTAINER, new Item.Properties().tab(Charms.CHARMSTAB)), (CharmBlocks.ADVANCED_CHARM_CONTAINER.getRegistryName()));
-    public static Item ULTIMATE_CHARM_CONTAINER = createItem(new BlockItem(CharmBlocks.ULTIMATE_CHARM_CONTAINER, new Item.Properties().tab(Charms.CHARMSTAB)), (CharmBlocks.ULTIMATE_CHARM_CONTAINER.getRegistryName()));
+    public static RegistryObject<Item> SATURATION_CHARM = ITEMS.register("saturation_charm", () -> new SaturationCharm(new Item.Properties().tab(Charms.CHARMSTAB)));
+    public static RegistryObject<Item> SPEED_CHARM = ITEMS.register("speed_charm", () -> new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.MOVEMENT_SPEED, 50));
+    public static RegistryObject<Item> SPEED_2_CHARM = ITEMS.register("speed_2_charm", () -> new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.MOVEMENT_SPEED, 50));
+    public static RegistryObject<Item> HASTE_CHARM = ITEMS.register("haste_charm", () -> new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DIG_SPEED, 50));
+    public static RegistryObject<Item> HASTE_2_CHARM = ITEMS.register("haste_2_charm", () -> new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DIG_SPEED, 50));
+    public static RegistryObject<Item> STRENGTH_CHARM = ITEMS.register("strength_charm", () -> new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DAMAGE_BOOST, 50));
+    public static RegistryObject<Item> STRENGTH_2_CHARM = ITEMS.register("strength_2_charm", () ->  new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DAMAGE_BOOST, 50));
+    public static RegistryObject<Item> ABSORPTION_CHARM = ITEMS.register("absorption_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.ABSORPTION, 50));
+    public static RegistryObject<Item> GLOWING_CHARM = ITEMS.register("glowing_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.GLOWING, 50));
+    public static RegistryObject<Item> DOLPHIN_CHARM = ITEMS.register("dolphin_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DOLPHINS_GRACE, 50));
+    public static RegistryObject<Item> BLINDNESS_CHARM = ITEMS.register("blindness_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.BLINDNESS, 50));
+    public static RegistryObject<Item> NAUSEA_CHARM = ITEMS.register("nausea_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.CONFUSION, 220));
+    public static RegistryObject<Item> INVISIBILITY_CHARM = ITEMS.register("invisibility_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.INVISIBILITY, 50));
+    public static RegistryObject<Item> LUCK_CHARM = ITEMS.register("luck_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.LUCK, 50));
+    public static RegistryObject<Item> LEVITATION_CHARM = ITEMS.register("levitation_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.LEVITATION, 50));
+    public static RegistryObject<Item> CHARM_BASE = ITEMS.register("charm_base", () ->  new Item(new Item.Properties().tab(Charms.CHARMSTAB)));
+    public static RegistryObject<Item> SLOWNESS_CHARM = ITEMS.register("slowness_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.MOVEMENT_SLOWDOWN, 50));
+    public static RegistryObject<Item> SLOW_FALLING_CHARM = ITEMS.register("slow_falling_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.SLOW_FALLING, 50));
+    public static RegistryObject<Item> ABSORPTION_2_CHARM = ITEMS.register("absorption_2_charm", () ->  new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.ABSORPTION, 50));
+    public static RegistryObject<Item> FIRE_RESISTANCE_CHARM = ITEMS.register("fire_resistance_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.FIRE_RESISTANCE, 50));
+    public static RegistryObject<Item> WATER_BREATHING_CHARM = ITEMS.register("water_breathing_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.WATER_BREATHING, 50));
+    public static RegistryObject<Item> MINING_FATIGUE_CHARM = ITEMS.register("mining_fatigue_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DIG_SLOWDOWN, 50));
+    public static RegistryObject<Item> NIGHT_VISION_CHARM = ITEMS.register("night_vision_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.NIGHT_VISION, 220));
+    public static RegistryObject<Item> RESISTANCE_CHARM = ITEMS.register("resistance_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DAMAGE_RESISTANCE, 50));
+    public static RegistryObject<Item> RESISTANCE_2_CHARM = ITEMS.register("resistance_2_charm", () ->  new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.DAMAGE_RESISTANCE, 50));
+    public static RegistryObject<Item> JUMP_CHARM = ITEMS.register("jump_charm", () ->  new CharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.JUMP, 50));
+    public static RegistryObject<Item> JUMP_2_CHARM = ITEMS.register("jump_2_charm", () ->  new UpgradedCharmItem(new Item.Properties().tab(Charms.CHARMSTAB), MobEffects.JUMP, 50));
+    public static RegistryObject<Item> SPIDER_CHARM = ITEMS.register("spider_charm",  () -> new SpiderCharm(new Item.Properties().tab(Charms.CHARMSTAB)));
+    public static RegistryObject<Item> FALL_CHARM = ITEMS.register("fall_charm", () ->  new FallCharm(new Item.Properties().tab(Charms.CHARMSTAB)));
+    public static RegistryObject<Item> BOUNCE_CHARM = ITEMS.register("bounce_charm",  () -> new BounceCharm(new Item.Properties().tab(Charms.CHARMSTAB)));
+    public static RegistryObject<Item> STEEL_TOED_CHARM = ITEMS.register("steel_toed_charm", () ->  new SteelToedCharm(new Item.Properties().tab(Charms.CHARMSTAB)));
+    public static RegistryObject<Item> STEP_UP_CHARM = ITEMS.register("step_up_charm", () ->  new StepUpCharm(new Item.Properties().tab(Charms.CHARMSTAB)));
 
-    public static Item createItem(Item item, String id) {
-        return createItem(item, new ResourceLocation(Charms.MOD_ID, id));
-    }
-
-    public static Item createItem(Item item, ResourceLocation id) {
-        if (id != null && !id.equals(new ResourceLocation("minecraft:air"))) {
-            item.setRegistryName(id);
-
-            items.add(item);
-
-            return item;
-        } else return null;
-    }
-
-    public static void init() {
-    }
+    public static RegistryObject<Item> CHARM_CONTAINER = ITEMS.register("charm_container", () -> new BlockItem(CharmBlocks.CHARM_CONTAINER.get(), new Item.Properties().tab(Charms.CHARMSTAB)));
+    public static RegistryObject<Item> ADVANCED_CHARM_CONTAINER = ITEMS.register("advanced_charm_container", () -> new BlockItem(CharmBlocks.ADVANCED_CHARM_CONTAINER.get(), new Item.Properties().tab(Charms.CHARMSTAB)));
+    public static RegistryObject<Item> ULTIMATE_CHARM_CONTAINER = ITEMS.register("ultimate_charm_container", () -> new BlockItem(CharmBlocks.ULTIMATE_CHARM_CONTAINER.get(), new Item.Properties().tab(Charms.CHARMSTAB)));
 }
