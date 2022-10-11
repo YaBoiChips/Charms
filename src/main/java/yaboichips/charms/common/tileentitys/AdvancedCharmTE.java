@@ -86,7 +86,6 @@ public class AdvancedCharmTE extends RandomizableContainerBlockEntity {
         if (!this.tryLoadLootTable(p_155055_)) {
             ContainerHelper.loadAllItems(p_155055_, this.chestContents);
         }
-
     }
 
     @Override
