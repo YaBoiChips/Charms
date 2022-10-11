@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import yaboichips.charms.Charms;
-import yaboichips.charms.common.container.*;
+import yaboichips.charms.common.container.UltimateCharmContainer;
 
 public class UltamiteContainerScreen extends AbstractContainerScreen<UltimateCharmContainer> {
 

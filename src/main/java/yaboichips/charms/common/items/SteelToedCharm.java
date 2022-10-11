@@ -7,7 +7,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -21,10 +20,6 @@ public class SteelToedCharm extends CharmItem implements ICurioItem {
         super(properties, null, 0);
     }
 
-    @Override
-    public int getItemStackLimit(ItemStack stack) {
-        return 1;
-    }
 
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
@@ -52,9 +47,10 @@ public class SteelToedCharm extends CharmItem implements ICurioItem {
             player.removeEffect(MobEffects.WITHER);
         }
     }
+
     @Override
     public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
-        if (!CharmsConfig.getInstance().allowSteelToedCharm()){
+        if (!CharmsConfig.getInstance().allowSteelToedCharm()) {
             stack.shrink(stack.getCount());
         }
     }

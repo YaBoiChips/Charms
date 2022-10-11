@@ -32,7 +32,7 @@ public class CharmContainerBlock extends BaseEntityBlock {
         if (!worldIn.isClientSide) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
             if (tile instanceof CharmContainerTE) {
-                NetworkHooks.openGui((ServerPlayer) player, (CharmContainerTE) tile, pos);
+                NetworkHooks.openScreen((ServerPlayer) player, (CharmContainerTE) tile, pos);
                 return InteractionResult.SUCCESS;
             }
         }

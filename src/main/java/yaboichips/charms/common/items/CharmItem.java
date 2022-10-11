@@ -34,11 +34,6 @@ public class CharmItem extends Item implements ICurioItem {
     }
 
 
-    @Override
-    public int getItemStackLimit(ItemStack stack) {
-        return 1;
-    }
-
     public MobEffect getCharmEffect() {
         return this.effect;
     }
@@ -48,7 +43,7 @@ public class CharmItem extends Item implements ICurioItem {
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Item item = stack.getItem();
         if (item instanceof CharmItem charm) {
-            if(getCharmEffect() != null) {
+            if (getCharmEffect() != null) {
                 slotContext.entity().addEffect(new MobEffectInstance(charm.getCharmEffect(), length));
             }
         }

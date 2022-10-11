@@ -33,13 +33,17 @@ import java.util.List;
 
 public class UltimateCharmTE extends RandomizableContainerBlockEntity {
 
-    private NonNullList<ItemStack> chestContents = NonNullList.withSize(36, ItemStack.EMPTY);
-    protected int numPlayersUsing;
     private final IItemHandlerModifiable items = createHandler();
     private final LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
+    protected int numPlayersUsing;
+    private NonNullList<ItemStack> chestContents = NonNullList.withSize(36, ItemStack.EMPTY);
 
     public UltimateCharmTE(BlockPos pos, BlockState state) {
         super(CharmTileEntityTypes.ULTAMITE_CHARM_CONTAINER.get(), pos, state);
+    }
+
+    public static void tick(Level world, BlockPos pos, BlockState state, UltimateCharmTE tile) {
+        tile.addEffectsToPlayers(world);
     }
 
     @Override
@@ -67,7 +71,6 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
         return new UltimateCharmContainer(id, player, this);
     }
 
-
     @Override
     public void saveAdditional(CompoundTag compound) {
         super.saveAdditional(compound);
@@ -84,7 +87,6 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
         }
 
     }
-
 
     @Override
     public boolean triggerEvent(int id, int type) {
@@ -123,7 +125,6 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
         }
     }
 
-
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nonnull Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -142,11 +143,6 @@ public class UltimateCharmTE extends RandomizableContainerBlockEntity {
         if (itemHandler != null) {
             itemHandler.invalidate();
         }
-    }
-
-
-    public static void tick(Level world, BlockPos pos, BlockState state, UltimateCharmTE tile) {
-        tile.addEffectsToPlayers(world);
     }
 
     public void addEffectsToPlayers(Level world) {

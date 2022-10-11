@@ -6,7 +6,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
@@ -15,12 +14,7 @@ import yaboichips.charms.util.CharmsConfig;
 
 public class SaturationCharm extends CharmItem implements ICurioItem {
     public SaturationCharm(Properties properties) {
-        super(properties, MobEffects.BAD_OMEN ,0);
-    }
-
-    @Override
-    public int getItemStackLimit(ItemStack stack) {
-        return 1;
+        super(properties, MobEffects.BAD_OMEN, 0);
     }
 
     @Override
@@ -47,7 +41,7 @@ public class SaturationCharm extends CharmItem implements ICurioItem {
 
     @Override
     public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
-        if (!CharmsConfig.getInstance().allowSaturationCharm()){
+        if (!CharmsConfig.getInstance().allowSaturationCharm()) {
             stack.shrink(stack.getCount());
         }
     }

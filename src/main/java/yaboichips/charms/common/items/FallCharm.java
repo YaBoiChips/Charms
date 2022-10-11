@@ -4,7 +4,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
@@ -16,10 +15,6 @@ public class FallCharm extends CharmItem implements ICurioItem {
         super(properties, null, 0);
     }
 
-    @Override
-    public int getItemStackLimit(ItemStack stack) {
-        return 1;
-    }
 
     @Override
     public void playRightClickEquipSound(LivingEntity livingEntity, ItemStack stack) {
@@ -41,7 +36,7 @@ public class FallCharm extends CharmItem implements ICurioItem {
 
     @Override
     public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
-        if (!CharmsConfig.getInstance().allowFallCharm()){
+        if (!CharmsConfig.getInstance().allowFallCharm()) {
             stack.shrink(stack.getCount());
         }
     }

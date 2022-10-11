@@ -1,6 +1,5 @@
 package yaboichips.charms.core;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -8,12 +7,9 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import yaboichips.charms.Charms;
-import yaboichips.charms.common.blocks.*;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import yaboichips.charms.common.blocks.AdvancedCharmBlock;
+import yaboichips.charms.common.blocks.CharmContainerBlock;
+import yaboichips.charms.common.blocks.UltimateCharmBlock;
 
 import static yaboichips.charms.Charms.MOD_ID;
 

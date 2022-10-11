@@ -33,14 +33,18 @@ import java.util.List;
 
 public class CharmContainerTE extends RandomizableContainerBlockEntity {
 
-    private NonNullList<ItemStack> chestContents = NonNullList.withSize(1, ItemStack.EMPTY);
-    protected int numPlayersUsing;
     private final IItemHandlerModifiable items = createHandler();
     private final LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
+    protected int numPlayersUsing;
+    private NonNullList<ItemStack> chestContents = NonNullList.withSize(1, ItemStack.EMPTY);
 
 
     public CharmContainerTE(BlockPos pos, BlockState state) {
         super(CharmTileEntityTypes.CHARM_CONTAINER.get(), pos, state);
+    }
+
+    public static void tick(Level world, BlockPos pos, BlockState state, CharmContainerTE tile) {
+        tile.addEffectsToPlayers(world);
     }
 
     @Override
@@ -126,7 +130,6 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         }
     }
 
-
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nonnull Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -151,10 +154,6 @@ public class CharmContainerTE extends RandomizableContainerBlockEntity {
         if (itemHandler != null) {
             itemHandler.invalidate();
         }
-    }
-
-    public static void tick(Level world, BlockPos pos, BlockState state, CharmContainerTE tile) {
-        tile.addEffectsToPlayers(world);
     }
 
     public void addEffectsToPlayers(Level world) {

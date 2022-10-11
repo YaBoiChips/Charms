@@ -7,6 +7,12 @@ public class CharmsConfig {
     private static final ForgeConfigSpec CONFIG_SPEC;
     private static final CharmsConfig INSTANCE;
 
+    static {
+        final Pair<CharmsConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CharmsConfig::new);
+        CONFIG_SPEC = specPair.getRight();
+        INSTANCE = specPair.getLeft();
+    }
+
     private final ForgeConfigSpec.IntValue charmSlots;
     private final ForgeConfigSpec.BooleanValue allowSaturationCharm;
     private final ForgeConfigSpec.BooleanValue allowSpeedCharm;
@@ -39,15 +45,8 @@ public class CharmsConfig {
     private final ForgeConfigSpec.BooleanValue allowBounceCharm;
     private final ForgeConfigSpec.BooleanValue allowSteelToedCharm;
 
-
-    static {
-        final Pair<CharmsConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CharmsConfig::new);
-        CONFIG_SPEC = specPair.getRight();
-        INSTANCE = specPair.getLeft();
-    }
-
     public CharmsConfig(ForgeConfigSpec.Builder builder) {
-        charmSlots = builder.defineInRange("Charm Slots" , 2,1, 26);
+        charmSlots = builder.defineInRange("Charm Slots", 2, 1, 26);
         builder.push("CHARMS CONFIG [NOT FUNCTIONAL DON'T USE]");
         allowSaturationCharm = builder.define("allowSaturationCharm", true);
         allowSpeedCharm = builder.define("allowSpeedCharm", true);
@@ -83,7 +82,17 @@ public class CharmsConfig {
 
     }
 
-    public int charmSlots() {return charmSlots.get(); }
+    public static ForgeConfigSpec getConfigSpec() {
+        return CONFIG_SPEC;
+    }
+
+    public static CharmsConfig getInstance() {
+        return INSTANCE;
+    }
+
+    public int charmSlots() {
+        return charmSlots.get();
+    }
 
     public boolean allowSaturationCharm() {
         return allowSaturationCharm.get();
@@ -203,13 +212,5 @@ public class CharmsConfig {
 
     public boolean allowSteelToedCharm() {
         return allowSteelToedCharm.get();
-    }
-
-    public static ForgeConfigSpec getConfigSpec() {
-        return CONFIG_SPEC;
-    }
-
-    public static CharmsConfig getInstance() {
-        return INSTANCE;
     }
 }

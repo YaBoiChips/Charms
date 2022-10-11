@@ -34,7 +34,7 @@ public class AdvancedCharmBlock extends BaseEntityBlock {
         if (!worldIn.isClientSide) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
             if (tile instanceof AdvancedCharmTE) {
-                NetworkHooks.openGui((ServerPlayer) player, (AdvancedCharmTE) tile, pos);
+                NetworkHooks.openScreen((ServerPlayer) player, (AdvancedCharmTE) tile, pos);
                 return InteractionResult.SUCCESS;
             }
         }

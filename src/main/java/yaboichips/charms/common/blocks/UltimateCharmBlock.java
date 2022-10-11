@@ -33,7 +33,7 @@ public class UltimateCharmBlock extends BaseEntityBlock {
         if (!worldIn.isClientSide) {
             BlockEntity tile = worldIn.getBlockEntity(pos);
             if (tile instanceof UltimateCharmTE) {
-                NetworkHooks.openGui((ServerPlayer) player, (UltimateCharmTE) tile, pos);
+                NetworkHooks.openScreen((ServerPlayer) player, (UltimateCharmTE) tile, pos);
                 return InteractionResult.SUCCESS;
             }
         }
