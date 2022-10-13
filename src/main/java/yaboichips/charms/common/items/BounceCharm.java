@@ -40,11 +40,4 @@ public class BounceCharm extends CharmItem implements ICurioItem {
             }
         }
     }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
-        if (!CharmsConfig.getInstance().allowBounceCharm()) {
-            stack.shrink(stack.getCount());
-        }
-    }
 }

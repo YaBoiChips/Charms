@@ -38,11 +38,4 @@ public class SaturationCharm extends CharmItem implements ICurioItem {
             }
         }
     }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
-        if (!CharmsConfig.getInstance().allowSaturationCharm()) {
-            stack.shrink(stack.getCount());
-        }
-    }
 }

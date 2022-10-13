@@ -43,11 +43,4 @@ public class SpiderCharm extends CharmItem implements ICurioItem {
             tryMakeEntityClimb(player.level, player, 0.31D);
         }
     }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
-        if (!CharmsConfig.getInstance().allowSpiderCharm()) {
-            stack.shrink(stack.getCount());
-        }
-    }
 }

@@ -47,12 +47,4 @@ public class SteelToedCharm extends CharmItem implements ICurioItem {
             player.removeEffect(MobEffects.WITHER);
         }
     }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
-        if (!CharmsConfig.getInstance().allowSteelToedCharm()) {
-            stack.shrink(stack.getCount());
-        }
-    }
-
 }

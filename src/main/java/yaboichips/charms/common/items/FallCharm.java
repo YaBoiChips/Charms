@@ -33,11 +33,4 @@ public class FallCharm extends CharmItem implements ICurioItem {
         LivingEntity player = slotContext.entity();
         player.fallDistance = 0.0F;
     }
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level world, Entity player, int i, boolean bool) {
-        if (!CharmsConfig.getInstance().allowFallCharm()) {
-            stack.shrink(stack.getCount());
-        }
-    }
 }
